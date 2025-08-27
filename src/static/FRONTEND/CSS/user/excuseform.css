@@ -1,0 +1,323 @@
+/* Form Container */
+.container-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    background-image: url('/static/ASSETS/IMG/Excuse/fondo-excuse.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    text-align: center;
+    gap: 30px;
+}
+
+.container-header::after {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.709);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.img-header {
+    margin-right: 200px;
+}
+
+.img-header img {
+    width: 600px;
+    height: 600px;
+    position: relative;
+    z-index: 2;
+}
+
+.container-text p {
+    position: relative;
+    z-index: 2;
+    color: #a2d2ff;
+    font-size: 90px;
+    width: 100%;
+    padding: 10px;
+}
+
+.container-text span {
+    z-index: 2;
+    color: var(--tertiary-color);
+}
+
+.container-text button {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    background: none;
+    color: white;
+    margin-top: 3%;
+    border: none;
+    padding: 15px 50px;
+    background-color: var(--tertiary-color);
+    border-radius: 8px;
+    font-size: 25px;
+}
+
+.container-text button a {
+    color: white;
+}
+
+.container-excuse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 70%;
+    margin: 5% auto;
+    background-color: var(--bg-color);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.img-form {
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.img-form img {
+    max-width: 100%;
+    height: 500px;
+    object-fit: contain;
+}
+
+.container-excuse form {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+}
+
+.container-excuse h1 {
+    color: var(--primary-color);
+}
+
+.container-one {
+    display: block;
+}
+
+.label {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputs {
+    display: flex;
+    gap: 20px;
+}
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.file-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 150px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.file-upload-label:hover {
+    background-color: #e0e0e0;
+    border-color: #999;
+}
+
+.upload-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.file-upload-label span {
+    font-size: 16px;
+    color: #555;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.grad img {
+    width: 30px;
+    height: auto;
+}
+
+.grad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+
+
+.file-name {
+    font-size: 14px;
+    color: #777;
+    margin-top: 10px;
+}
+
+label {
+    white-space: nowrap;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+legend {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Estilos generales para inputs y selects */
+input,
+select {
+    width: 100%; /* Ocupa el 100% del ancho del contenedor */
+    padding: 10px; /* Padding consistente */
+    margin-top: 5px; /* Margen superior consistente */
+    border: 1px solid #ccc; /* Borde consistente */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* Cuando el usuario hace focus en el input */
+input:focus, select:focus{
+    border-color: var(--tertiary-color);
+    box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+}
+
+/* Estilos específicos para el campo de fecha */
+input[type="date"] {
+    width: 100%; /* Mismo ancho que los demás campos */
+    padding: 10px; /* Mismo padding que los demás campos */
+}
+
+/* Estilos específicos para el campo de descripción */
+input[type="text"][name="specification"] {
+    width: 100%; /* Mismo ancho que los demás campos */
+    padding: 10px; /* Mismo padding que los demás campos */
+    padding-bottom: 10px; /* Ajusta el padding inferior si es necesario */
+}
+
+button {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+button[type="reset"] {
+    background: #d9534f;
+    color: white;
+}
+
+button[type="submit"] {
+    background: #5cb85c;
+    color: white;
+}
+
+@media (max-width: 400px) {
+    label{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .container-excuse {
+        flex-direction: column;
+    }
+
+    .img-form {
+        margin-bottom: 20px;
+    }
+
+    input[type="date"],
+    input[type="text"][name="specification"] {
+        width: 100%;
+    }
+
+    
+}
+
+@media (max-width: 1050px) {
+    .img-form {
+        display: none;
+    }
+
+    .img-header {
+        display: none;
+    }
+
+    .container-header p {
+        font-size: 28px;
+        width: 95%;
+    }
+
+    .container-header {
+        height: 50vb;
+    }
+}
+
+@media (min-width: 1050px) and (max-width: 1400px) {
+    .img-header {
+        display: none;
+    }
+
+    .container-header p {
+        font-size: 40px;
+    }
+}
+/* Estilo para el campo de texto "Otros" */
+#otroInput {
+    display: none; /* Oculto por defecto */
+    margin-top: 10px;
+}
+
+#otroInput.visible {
+    display: block; /* Visible cuando se selecciona "Otros" */
+}

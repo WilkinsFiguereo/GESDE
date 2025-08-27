@@ -1,0 +1,360 @@
+
+.menu-excuses-received{
+    display: flex;
+    margin: 2% 2% 0 2%;
+    background-color: var(--primary-color);
+    padding: 20px;
+    align-items: center;
+}
+
+.menu-excuses-received h2{
+    color: white;
+}
+.menu-excuses-received p{
+    margin-left: auto;
+    color: white;
+    background-color: #5a95e3;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+
+
+
+.filter{
+    padding: 10px;
+    margin: 0 2% ;
+    display: flex;
+    align-items: center;
+}
+
+.text-filter h2{
+    color: var(--primary-color);
+    font-size: 30px;
+    font-weight: 700 !important;
+}
+
+.text-filter p{
+    font-size: 19px;
+    color: #bebebe;
+}
+
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 0px 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 30px;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+
+.filter-option img {
+    width: 20px;
+    height: auto;
+}
+
+.container-change{
+    display: flex;
+    position: relative;
+    margin-right: 5px;
+    gap: 10px;
+    background: #f8f9fa;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container-change img{
+    width: 20px;
+    height: auto;
+}
+
+.flex, .block{
+    padding: 7px 10px;
+}
+  
+  /* Pseudo-elemento que actúa como fondo deslizante */
+  .container-change::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;           /* Inicia en el lado izquierdo (selección en .block) */
+    width: 50%;        /* Cubre la mitad del contenedor */
+    height: 100%;
+    border-radius: 5px;
+    background-color: #74b7fa;
+    transition: left 0.3s ease-in-out;  /* Animación suave al cambiar de posición */
+    z-index: 0;        /* Debe ir detrás del contenido */
+  }
+  
+  /* Estilos para los elementos internos */
+  .block, .flex {
+    flex: 1;
+    position: relative;
+    z-index: 1;        /* Por encima del pseudo-elemento */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Cuando se active el estado, el slider se mueve al 50% (lado derecho) */
+  .container-change.active::before {
+    left: 50%;
+  }
+  
+.seleccion img {
+    filter: invert(20%) sepia(100%) saturate(1200%) hue-rotate(190deg) brightness(90%) contrast(110%);
+}
+
+
+.sekeer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 0px 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 30px;
+}
+
+.sekeer input{
+    border: none;
+    padding: 4px;
+}
+
+.sekeer input:focus{
+    outline: none;
+}
+
+.sekeer img{
+    width: 20px;
+    height: auto;
+    padding: 5px;
+}
+
+.filter-option select{
+    border: none;
+    box-shadow: none;
+}
+
+/* Estilos para ocultar el contenedor por defecto */
+#gradoSelectContainer {
+    display: none;
+}
+
+/* Cuando tiene la clase visible, se muestra */
+#gradoSelectContainer.visible {
+    display: block;
+}
+
+#gradoSelectContainer select{
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 6px 5px;
+    margin-right: 5px;
+}
+
+select:focus {
+    outline: none;
+    border: none;
+    box-shadow: none; /* Evita cualquier efecto de sombra */
+}
+.excuses-received{
+    margin: auto;
+    width: 80%;
+    max-width: 550px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px 10px;
+}
+
+.cambio{
+    margin: 2%;
+    width: 100%;
+    max-width: none;
+}
+
+.cambio-box{
+    display: block;
+}
+
+.box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    box-sizing: border-box;  /* Asegura que el padding no afecte el tamaño total */
+}
+
+.container-person{
+    display: flex;
+    padding: 20px;
+}
+
+.img-profile{
+    justify-content: center;
+    align-items: center;
+}
+
+.img-profile img{
+    width: 60px;
+    height: 60px;
+}
+
+
+.info i {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.info i img {
+    vertical-align: middle;
+    padding: 5px;
+}
+
+.student {
+    color: var(--primary-color);
+    margin-left: 15px;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.father{
+    color: #bebebe;
+    margin-left: 20px;
+}
+.father img{
+    width: 25px;
+    height: auto;
+}
+
+.state{
+    position: relative;
+    margin-top: 10px;
+    margin-left: auto;
+    color: white;
+    padding: 10px 15px;
+    background-color: rgb(4, 164, 4);
+    max-height: 20px;
+    border-radius: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.state i img{
+    width: 20px;
+    height: auto;
+}
+
+.info-excuse{
+    padding: 20px 15px;
+    margin-top: 20px;
+}
+.container-excuse-info{
+    display: flex;
+    justify-items: center;
+    gap: 10px;
+}
+
+.container-excuse-info img{
+    width: 30px;
+    height: auto;
+}
+
+.info-ex p{
+    margin-left: 40px;
+    font-weight: 390 !important;
+}
+
+.rease, .date{
+    padding: 10px;
+}
+.rease:hover, .date:hover{
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+.absence{
+    padding: 5px;
+    background-color: #5a95e3;
+    width: 200px;
+    border-radius:6px;
+    margin-left: auto;
+    margin-right: 30px;
+}
+.absence p{
+    margin: 0;
+    font-weight: 550 !important;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    padding: 0;
+}
+
+/* Responsividad para pantallas más pequeñas */
+
+@media (max-width: 500px) {
+    .container-person{
+        display: block;
+    }
+
+    .img-profile{
+        text-align: center;
+    }
+
+
+    .info{
+        text-align: center;
+        font-size: 25px;
+    }
+
+    .menu-excuses-received{
+        display: block;
+        margin: 2% 2% 0 2%;
+    }
+}
+@media (max-width: 768px) {
+    .box {
+        flex: 1 1 calc(50% - 20px);  /* Dos cajas por fila en pantallas más pequeñas */
+    }
+
+    .filter{
+        display: block;
+    }
+
+    .filter select{
+        text-align: center;
+    }
+
+    .excuses-received{
+        width: 100%;
+        margin: 0;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .box {
+        flex: 1 1 100%;  /* Una sola caja por fila en pantallas muy pequeñas */
+    }
+}
+
+@media (max-width: 350px) {
+    .box {
+        flex: 1 1 100%;  /* Una sola caja por fila en pantallas muy pequeñas */
+    }
+}

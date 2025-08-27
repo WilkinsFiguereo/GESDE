@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Enviado correctamente{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/good.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-god">
+        <div class="contenedor">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/aprobado.png') }}" alt="">
+            <h2>{{ message }}</h2>
+            {% if usuario.rol == 'parent' %}
+                <button><a href="{{url_for('homepage.homepage')}}">Volver</a></butto>
+            {%elif usuario.rol == 'administration'%}
+                <button><a href="{{url_for('pending.pending')}}">Volver</a></butto>
+            {% elif usuario.rol == 'teacher'%}
+                <button><a href="{{url_for('teacher.show_excuses')}}">Volver</a></butto>
+            {% elif usuario.rol == 'admin'%}
+                <button><a href="{{url_for('dashboard.dashboard')}}">Volver</a></butto>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,315 @@
+.container-pading {
+    margin-top: 5%;
+    margin: 3%;
+    position: relative;
+}
+
+.container-pading table {
+    margin: 0 auto;
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+    background-color: #fff; /* Fondo blanco para la tabla */
+    overflow: hidden; /* Para que los bordes redondeados funcionen */
+}
+
+.icon-button {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+.icon-button button{
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.container-pading button img{
+    width: 30px;
+    height: auto;
+}
+
+.aceptar button{
+    background-color: rgb(74, 211, 74);
+    border-top-left-radius: 10px;
+    border-end-start-radius: 10px;
+}
+
+.rechazar{
+    background-color: rgb(246, 41, 41);
+    border-top-right-radius: 10px;
+    border-end-end-radius: 10px;
+    
+}
+
+
+.container-pading table thead tr th {
+    background-color: rgb(239, 250, 254);
+    padding: 15px;
+    color: black;
+    font-size: 10px;
+    text-transform: uppercase; 
+}
+
+.container-pading table thead tr th img,
+.container-pading table tbody tr td img {
+    width: 20px; /* Tamaño de la imagen */
+    height: auto;
+    vertical-align: middle; /* Alinea la imagen verticalmente con el texto */
+    margin-right: 5px;
+}
+
+.container-pading table thead tr th span {
+    display: inline-block; /* Asegura que el texto se quede en línea con la imagen */
+    vertical-align: middle; /* Alinea el texto verticalmente con la imagen */
+}
+
+.container-pading table tbody td {
+    padding: 15px;
+    font-size: 15px;
+    text-align: center;
+    max-width: 250px;
+    color: #333; /* Color de texto más oscuro */
+    font-weight: 600;
+}
+
+.container-pading table tbody tr:last-child td {
+    border-bottom: none; 
+}
+
+.container-pading table tbody td:nth-child(3) {
+    color: var(--primary-color);
+    font-weight: 500; 
+}
+
+.container-pading table tbody td:nth-child(3) span{
+    background-color: #b1d3ff;
+    padding: 10px 45px;
+    border-radius: 30px;
+}
+
+.container-pading table tbody td:nth-child(4) {
+    color: #e16557;
+}
+
+.container-pading table tbody td:nth-child(4) span{
+    background-color: rgb(254, 254, 150);
+    padding: 10px 10px;
+    border-radius: 30px;
+}
+
+
+.container-pading table tbody td:nth-child(5) {
+    width: 100px;
+    min-width: 250px;
+    white-space: nowrap;   /* Evita que el texto se divida en varias líneas */
+    overflow: hidden;      /* Oculta el texto que se sale del contenedor */
+    text-overflow: ellipsis; /* Muestra los tres puntos (...) al final */
+    cursor: pointer;
+}
+
+.container-pading table tbody td:nth-child(5):hover {
+    background-color: #f9f9f9;
+    text-align: justify;
+    width: 100%;
+    min-width: 250px;
+    white-space: normal;       /* Permite que el texto se divida en varias líneas */
+    overflow: visible;         /* Muestra todo el contenido */
+    text-overflow: clip;
+    text-align: center;  
+    padding: 15px;  
+    position: absolute;   
+    font-size: 20px;
+    z-index: 10;               /* Asegura que el contenido se muestre por encima de otros elementos */
+}
+
+.container-pading table tbody td:nth-child(7) {
+    color: var(--primary-color);
+    font-weight: 500; 
+}
+
+.container-pading table tbody td:nth-child(7) span{
+    background-color: #b1d3ff;
+    padding: 10px 15px;
+    border-radius: 30px;
+}
+
+
+.container-pading table tbody td:nth-child(8) {
+    color: white;
+    cursor: pointer;
+    min-width: 130px;
+}
+
+.container-pading table tbody td:nth-child(8) span{
+    background-color: #b1d3ff;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.container-pading table tbody td:nth-child(8) span img{
+    margin: 0;
+}
+/* Estilo para las filas pares (opcional) */
+.container-pading table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Fondo gris claro para filas pares */
+}
+
+/* Estilo para las filas impares (opcional) */
+.container-pading table tbody tr:nth-child(odd) {
+    background-color: #fff; /* Fondo blanco para filas impares */
+}
+
+
+.menu-pading {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    padding: 10px 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+
+.menu-pading h2{
+    color: white;
+    margin-left: 30px;
+}
+
+.menu-pading h2 img{
+    width: 20px;
+    height: auto;
+    margin-right: 5px;
+}
+.menu-pading p{
+    color: white;
+    margin-left: auto;
+    margin-right: 30px;
+    background-color:#5a95e3;
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+.container-box {
+    margin: 3%;
+    display: flex;
+}
+
+.box-1,
+.box-2,
+.box-3 {
+    margin-top: 5%;
+    width: 500px;
+    margin-left: 60px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    align-items: center;
+    padding: 10px; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.box-1{
+    border-left: #5a95e3 solid 5px;
+}
+
+.box-2{
+    border-left: rgb(74, 211, 74) solid 5px;
+}
+
+.box-3{
+    border-left: rgb(246, 41, 41) solid 5px;
+}
+
+.box-1 .img-box img {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #5a95e3;
+    width: 50px;
+    height: auto;
+}
+
+.box-1 .text-box {
+    color: #5a95e3;
+    display: flex;
+    flex-direction: column; /* Coloca el texto en columna */
+}
+
+.box-2 .img-box img {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgb(74, 211, 74);
+    width: 50px;
+    height: auto;
+}
+
+.box-2 .text-box {
+    color: rgb(74, 211, 74);
+    display: flex;
+    flex-direction: column; /* Coloca el texto en columna */
+}
+
+.box-3 .img-box img {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgb(246, 41, 41);
+    width: 50px;
+    height: auto;
+}
+
+.box-3 .text-box{
+    color: rgb(246, 41, 41);
+    display: flex;
+    flex-direction: column; /* Coloca el texto en columna */
+}
+
+
+
+@media (max-width: 1300px){
+
+    .menu-pading{
+        width: 100%;
+    }
+
+    .container-table-pading {
+        max-width: 100%;
+        overflow-y: auto;  /* Agrega scroll vertical */
+      }
+
+    .container-table-pading table{
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .container-pading table tbody td{
+        min-width: 250px;
+    }
+
+    .container-box{
+        margin: 0;
+        padding: 0;
+    }
+
+    .box-1,
+.box-2,
+.box-3 {
+    width: 400px;
+}
+}
+
+@media (max-width: 800px){
+    .container-box{
+        display: block;
+    }
+    .box-1,
+    .box-2,
+    .box-3 {
+        width: 90%;
+        margin-left: 0;
+}
+}

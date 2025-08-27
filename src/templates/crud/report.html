@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de usuarios{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/crud/report.css') }}">   
+
+{% endblock %}
+
+{% block content %}
+
+    <nav class="menu">
+        {% include 'menu.html' %}
+    </nav>
+       
+    <div class="content-wrapper">  
+        <div class="container-menu-side" id="menuSidebar" style="height: 150vh;">
+            {% include 'crud/side-menu.html' %}
+        </div>
+
+        <div class="report-generator">
+            <div class="title">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/informe.png') }}" alt="">
+                <h1>Generador de reportes </h1>
+            </div>
+            <div class="report-box">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/usuario (2).png') }}" alt="">
+                </div>
+                <div class="action">
+                <div class="text">
+                    <h2>Reporte de usuarios activos</h2>
+                    <p>Generar un reporte detallado de todos los usuarios activos del sistema</p>
+                </div>
+                <button id="generate-report" type="button">Generar reporte</button>
+                </div>
+            </div>
+
+           <div class="report-box">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/usuario-bloqueado.png') }}" alt="">
+                </div> 
+                <div class="action">
+                <div class="text">
+                    <h2>Reporte de usaurios deshabilitados</h2>
+                    <p>Generar un reporte detallado de todos los usuarios deshabilitados del sistema</p>
+                </div>
+                <button id="generate-report_disable" type="button">Generar reporte</button>
+            </div>
+            
+            
+            </div>
+            <div class="report-box">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/portafolio.png') }}" alt="">
+                </div> 
+                <div class="action">
+                <div class="text">
+                    <h2>Reporte de trabajadores</h2>
+                    <p>Generar un reporte detallado de todos los trabajadores del sistema</p>
+                </div>
+                <button id="generate-report_workers" type="button">Generar reporte</button>
+            </div>
+            
+        </div>
+        <div class="report-box">
+            <div class="img">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/papa.png') }}" alt="">
+            </div> 
+            <div class="action">
+            <div class="text">
+                <h2>Reporte de padres</h2>
+                <p>Generar un reporte detallado de todos los padres del sistema</p>
+            </div>
+            <button id="generate-report_parents" type="button">Generar reporte</button>
+        </div>
+            
+        </div>
+
+        <div class="report-box">
+            <div class="img">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/alumno (1).png') }}" alt="">
+            </div> 
+            <div class="action">
+            <div class="text">
+                <h2>Reporte de alumnos</h2>
+                <p>Generar un reporte detallado de todos los alumnos del sistema</p>
+            </div>
+            <button id="generate-report_students" type="button">Generar reporte</button>
+        </div>
+            
+        </div>
+
+        <div class="report-box">
+            <div class="img">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/bloquear.png') }}" alt="">
+            </div> 
+            <div class="action">
+            <div class="text">
+                <h2>Reporte de excusas pendientes</h2>
+                <p>Generar un reporte detallado de todas las excusas del sistema</p>
+            </div>
+            <button id="generate-report_pending" type="button">Generar reporte</button>
+        </div>
+            
+        
+        </div>
+        
+        <div class="report-box">
+            <div class="img">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/bloquear.png') }}" alt="">
+            </div> 
+            <div class="action">
+            <div class="text">
+                <h2>Reporte de excusas aceptadas</h2>
+                <p>Generar un reporte detallado de todas las excusas del sistema</p>
+            </div>
+            <button id="generate-report_accepted" type="button">Generar reporte</button>
+        </div>
+            
+        
+        </div>
+
+        <div class="report-box">
+            <div class="img">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/bloquear.png') }}" alt="">
+            </div> 
+            <div class="action">
+            <div class="text">
+                <h2>Reporte de excusas rechazadas</h2>
+                <p>Generar un reporte detallado de todas las excusas del sistema</p>
+            </div>
+            <button id="generate-report_rejected" type="button">Generar reporte</button>
+        </div>
+            
+        
+        </div>
+        
+        
+    </div>
+</div>
+
+<script>
+document.getElementById('generate-report').addEventListener('click', function () {
+    window.location.href = 'reporte/usuarios-activos'; // URL que sirve el PDF
+});
+document.getElementById('generate-report_disable').addEventListener('click', function () {
+    window.location.href = 'reporte/usuarios_deshabilitados'; // URL que sirve el PDF
+});
+document.getElementById('generate-report_parents').addEventListener('click', function () {
+    window.location.href = 'reporte/padres'; // URL que sirve el PDF
+});
+document.getElementById('generate-report_workers').addEventListener('click', function () {
+    window.location.href = 'reporte/trabajadores'; // URL que sirve el PDF
+});
+document.getElementById('generate-report_accepted').addEventListener('click', function () {
+    window.location.href = 'reporte/excusas_aprobadas'; // URL que sirve el PDF
+});
+document.getElementById('generate-report_pending').addEventListener('click', function () {
+    window.location.href = 'reporte/excusas_pendientes'; // URL que sirve el PDF
+});
+document.getElementById('generate-report_rejected').addEventListener('click', function () {
+    window.location.href = 'reporte/excusas_rechazadas'; // URL que sirve el PDF
+});
+document.getElementById('generate-report_students').addEventListener('click', function () {
+    window.location.href = 'reporte/reporte_estudiantes'; // URL que sirve el PDF
+});
+</script>
+
+
+    <script src="{{ url_for('static', filename='JS/crud.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/dashboard.css') }}">
+
+{% endblock %}
+
+{% block content %}
+        {% include 'menu.html' %}
+    
+    
+        <div class="content-wrapper" id="contentWrapper">  
+        <div class="container-menu-side" id="menuSidebar" style="height: 200vh;">
+          {% include 'crud/side-menu.html'%}
+        </div>
+    <div class="container-dashboard">
+        <div class="title-dashboard">
+            <div class="title">
+                <h2>Estadísticas de excusas</h2>
+            </div>
+            <div class="notification" id="notificationToggle">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/notificacion.png') }}" alt="">
+                <p>{{ total_menssages }}</p>
+            </div>
+        </div>
+        
+        <div class="group-one">
+            <div class="container-graphic">
+                <div class="graphic">
+                    <canvas id="excusasChart"></canvas>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                </div>
+                <div class="text-graphic">
+                    <p class="p"><i><img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/reloj-de-pared.png') }}" alt=""></i> Excusas pendientes: {{ total_excuses }}</p>
+                    <p class="a"><i><img src="{{ url_for('static', filename='ASSETS/IMG/pading/marca-de-verificacion.png') }}" alt=""></i> Excusas aprobadas: {{ total_accepted }}</p>
+                    <p class="r"><i><img src="{{ url_for('static', filename='ASSETS/IMG/pading/rechazado.png') }}" alt=""></i> Excusas rechazadas: {{ total_rejected }}</p>
+                </div>
+            </div>
+
+            <div class="container-info_graphic">
+                <p class="p"><i><img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/reloj-de-pared.png') }}" alt=""></i> Excusas enviadas esta semana: {{ week_excuses }}</p>
+                <p class="a"><i><img src="{{ url_for('static', filename='ASSETS/IMG/pading/marca-de-verificacion.png') }}" alt=""></i> Excusas aprobadas esta semana: {{week_accepted}}</p>
+                <p class="r"><i><img src="{{ url_for('static', filename='ASSETS/IMG/pading/rechazado.png') }}" alt=""></i> Excusas rechazadas esta semana: {{week_rejected}}</p>
+            </div>
+        </div>
+
+        <div class="user-dashboard">
+            <div class="title_user">
+                <div class="title">
+                    <h2>Estadísticas de Usuarios</h2>
+                </div>
+            </div>
+
+            <div class="container-infor_user">
+                <div class="users_info">
+                    <div class="stats-container">
+                        <ul class="stats-list">
+                            <li data-id="1" class="stat-item">
+                                <span class="stat-label">Usuarios activos:</span>
+                                <span class="stat-value active">{{ total_user }}</span>
+
+                            </li>
+                            <li data-id="2" class="stat-item">
+                                <span class="stat-label">Usuarios inactivos:</span>
+                                <span class="stat-value inactive">{{ total_user_userunbailited }}</span>
+                            </li>
+                            <li data-id="3" class="stat-item">
+                                <span class="stat-label">Padres:</span>
+                                <span class="stat-value parents">{{ total_padre}}</span>
+                            </li>
+                            <li data-id="4" class="stat-item">
+                                <span class="stat-label">Estudiantes:</span>
+                                <span class="stat-value students">{{total_students}}</span>
+                            </li>
+                            <li data-id="5" class="stat-item">
+                                <span class="stat-label">Profesores:</span>
+                                <span class="stat-value teachers">{{total_profesor}}</span>
+                            </li>
+                            <li data-id="6" class="stat-item">
+                                <span class="stat-label">Administradores:</span>
+                                <span class="stat-value workers">{{total_administration}}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="usuariosChart" ></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title_user">
+            <div class="title">
+                <h2>Últimas Actualizaciones</h2>
+            </div>
+        </div>
+
+        <div class="dashboard-activities">
+            <div class="activities-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Últimas actualizaciones</h2>
+                </div>
+                
+                <div class="activities-timeline">
+                    {% for update in updates %}
+                        <div class="activity-entry">
+                            <div class="activity-meta">
+                                <span class="activity-date">{{ update.date }}</span>
+                                <span class="activity-badge {{ update.type | lower }}">{{ update.type }}</span>
+                            </div>
+                            <p class="activity-detail">{{ update.detail }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="messages-panel" style="margin-top: 0;">
+                <div class="panel-header">
+                    <h2 class="panel-title">Mensajes</h2>
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/notificacion.png') }}" alt="Notificaciones" class="notification-icon">
+                </div>
+
+
+                <div class="messages-list">
+                    {% for menssages in menssages %}
+                    <div class="message">
+                        <h3 class="message-sender">{{menssages.name_user}}</h3>
+                        <p class="message-text">{{menssages.problem}}</p>
+                        <span class="message-time">{{ menssages.date }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+        
+    </div>
+</div>
+
+<div class="container-messages" id="containerMessages" style="display: none;">
+<div class="messages-panel" style="margin:  5% 25%; ">
+    <button class="close-btn" >&times;</button>
+        <div class="panel-header">
+            <h2 class="panel-title">Mensajes</h2>
+            <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/notificacion.png') }}" alt="Notificaciones" class="notification-icon">
+        </div>
+    <div class="messages-list">
+        
+        {% for menssages_complet in menssages_complet %}
+        <form action="{{ url_for('dashboard.solved') }}" method="POST">
+            <div class="message">
+                <h3 class="message-sender">{{ menssages_complet.name_user }}</h3>
+                <p class="message-text">{{ menssages_complet.problem }}</p>
+                <span class="message-time">{{ menssages_complet.date }}</span>
+            </div>
+            <input type="hidden" name="message_id" value="{{ menssages_complet.id_contact }}">
+            <button type="submit" class="btn-solution">Solucionado</button>
+        </form>
+        
+        {% endfor %}
+    </div>
+</div>
+</div>
+<script src="{{ url_for('static', filename='JS/crud.js') }}"></script>
+<script src="{{ url_for('static', filename='JS/graphic.js') }}"></script>
+    {% endblock %}

@@ -1,0 +1,31 @@
+<div class="container-box">
+    <div class="box-1">
+        <div class="img-box">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/calendario.png') }}" alt="">
+        </div>
+        <div class="text-box">
+            <p>Excusas pendientes</p>
+            <h2>{{ total_excuses }}</h2>
+        </div>
+    </div>
+
+    <div class="box-2">
+        <div class="img-box">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/marca-de-verificacion.png') }}" alt="">
+        </div>
+        <div class="text-box">
+            <p>Excusas aceptadas</p>
+            <h2>{{ total_accepted }}</h2>
+        </div>
+    </div>
+
+    <div class="box-3">
+        <div class="img-box">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/rechazado.png') }}" alt="">
+        </div>
+        <div class="text-box">
+            <p>Excusas rechazadas</p>
+            <h2>{{ total_rejected }}</h2>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/GenericCSS/general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/profile-left.css') }}">
+
+    <div class="container-profile-left">
+        <div class="edit">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/edit-3-svgrepo-com.svg') }}" alt="Editar" onclick="openEditProfile()">
+        </div>
+        <div class="img-profile-left">
+            
+            {% if g.usuario %}
+                <img src="{{ url_for('static', filename='profile_pics/' + (g.usuario.profile_pic or 'default.jpg')) }}">
+    
+                {% else %}
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/usuario.png') }}"
+                         alt="Imagen de perfil predeterminada">
+                {% endif %}
+        </div>
+        <div class="info-profile">
+            <div class="name">
+                <h1>{{usuario.name}}</h1>
+                <p>{{usuario.rol}}</p>
+            </div>
+            
+            <div class="excuse-info">
+                <ul>
+                    <li>
+                        <h2>{{ total_pendientes }}</h2>
+                        <p>Pendientes</p>
+                    </li>
+                    <li>
+                        <h2>{{ total_aprobadas }}</h2>
+                        <p>Aprobadas</p>
+                    </li>
+                    <li>
+                        <h2>{{ total_rechazadas }}</h2>
+                        <p>Rechazadas</p>
+                    </li>
+                </ul>
+            </div>
+            
+
+            <div class="text-info">
+                <div class="container-info">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/profile/cedula-de-identidad-con-clip.png') }}" alt="">
+                    <div class="text">
+                        <h2>Cédula</h2>
+                        <p>{{usuario.idcard}}</p>
+                    </div>
+                </div>
+                <div class="container-info">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/profile/numero-de-telefono.png') }}" alt="">
+                    <div class="text">
+                        <h2>Número</h2>
+                        <p>{{usuario.phone}}</p>
+                    </div>
+                </div>
+                <div class="container-info">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/profile/enviar.png') }}" alt="">
+                    <div class="text">
+                        <h2>Excusas enviadas</h2>
+                        <p>{{ total_excusas }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action">
+            <h2>Acciones rápidas</h2>
+
+            <div class="container-action">
+                <a href="{{ url_for('excuse.excuse') }}">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/profile/enviar.png') }}" alt="">
+                    <p>Enviar excusas</p>
+                </a>
+            </div>
+            <div class="container-action">
+                <a href="{{ url_for('record.historial_excusas') }}">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/profile/simbolo-de-interfaz-de-historial-de-navegacion-de-un-reloj-con-una-flecha.png') }}" alt="">
+                    <p>Historial de excusas</p>
+                </a>
+            </div>
+        </div>
+    </div>
+

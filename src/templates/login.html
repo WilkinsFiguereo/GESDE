@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}GESDE{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/GenericCSS/login.css') }}">
+    
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-login">
+        <div class="login">
+            <div class="img-logo">
+                <!-- Imagen con url_for para cargar correctamente -->
+                 <img src="/src/static/ASSETS/IMG/GenericImg/GedesLogo.png" alt="">
+                 <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/1.png') }}" alt="Logo">
+
+            </div>
+            <form  action="{{ url_for('login.login') }}" method="post">
+                <h1>Bienvenido!</h1>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+                <h2>Cédula</h2>
+                    <div class="container-email">
+                        <input type="text" placeholder="XXX-XXXXXXX-X" name="IDcard" id="idCardInput" maxlength="13" oninput="formatIDCard(this)" required>
+                        <i>
+                            <img src="/src/static/ASSETS/IMG/Login/iconLogin/email-svgrepo-com.svg" alt="" class="icon-email"> 
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/Login/iconLogin/email-svgrepo-com.svg') }}" alt="" class="icon-email">
+                        </i>
+                    </div>
+                
+
+                <h2>Contraseña</h2>
+                    <div class="container-password">
+                        <input type="password" placeholder="Ingrese su contraseña" name="Password" id="passwordInput" required>
+                        <i onclick="togglePassword()">
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/Login/iconLogin/eye-svgrepo-com.svg') }}" alt="Mostrar contraseña" id="passwordIcon" class="icon-password">
+                        </i>
+                    </div>
+
+                <button type="submit">Iniciar sesión</button>
+            </form>
+            <a href="{{url_for('recover.recover_confirm')}}" class="oc">¿Olvidaste tu contraseña?</a>
+            <div class="TermsConditions">
+                <p>© 2025 GESDE. Todos los derechos reservados. La información proporcionada será tratada de manera confidencial según nuestra Política de Privacidad.</p>
+                <div class="TermsPolicy">
+                <a href="http://localhost:5000/static/Document/terminos_y_condiciones_gesde.pdf" target="_blank">Términos de Uso</a>
+                    <p>|</p>
+                    <a href="http://localhost:5000/static/Document/politica_privacidad_gesde_3_paginas.pdf" target="_blank">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="img-right">
+            <p></p>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+
+
+    <script src="{{ url_for('static', filename='JS/login.js') }}"></script>
+    <script src="{{ url_for('static', filename='JS/autocomplet.js') }}"></script>
+
+{% endblock %}

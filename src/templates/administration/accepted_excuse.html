@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Excusas aceptadas{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/administration/pending.css') }}">
+{% endblock %}
+
+{% block content %}
+  
+  {% include 'menu.html' %}
+  {% include 'administration/box-pending.html' %}
+  
+  <div class="container-pading">
+    <div class="menu-pading">
+      <h2>
+        <img src="{{ url_for('static', filename='ASSETS/IMG/pading/calendario.png') }}" alt="">
+        Excusas aceptadas
+      </h2>
+    </div>
+    <div class="container-table-pading">
+    <table>
+      <thead>
+        
+      {% include 'administration/thead-excuses.html' %}
+      </thead>
+      <tbody>
+        {% if accept %}
+    {% for accept in accept %}
+        <tr>
+            <td>{{ accept.parent_name }}</td>
+            <td>{{ accept.student_name }}</td>
+            <td><span class="grado">{{ accept.grade }}</span></td>
+            <td><span class="motivo">{{ accept.reason }}</span></td>
+            <td>{{ accept.specification }}</td>
+            <td>
+                <img src="{{ url_for('static', filename='ASSETS/IMG/pading/calendario (3).png') }}" alt="">
+                {{ accept.excuse_date }}
+            </td>
+            <td><span class="dias">{{ accept.excuse_duration }}</span></td>
+            <td>
+              <span><a href="{{ url_for('excuse.view_file', excuse_id=accept.id_excuse) }}" target="_blank">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Login/iconLogin/eye-svgrepo-com.svg') }}" alt="">
+                Ver archivo
+            </a></span>
+            </td>
+            
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td colspan="9">No hay excusas registradas.</td>
+    </tr>
+{% endif %}
+
+      </tbody>
+    </table>
+    
+  </div>
+
+  <div class="pagination">
+    {% if has_prev %}
+      <a href="{{ url_for('accept.accept', page=page-1) }}"> <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}" alt="" style="transform: rotate(180deg); "> </a>
+    {% endif %}
+    
+    <span>
+      Página {{ page }} de 
+      {{ (total_excuses // 10) + (1 if total_excuses % 10 > 0 else 0) }}
+    </span>
+    
+    {% if has_next %}
+      <a href="{{ url_for('accept.accept', page=page+1) }}"> <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}" alt=""> </a>
+    {% endif %}
+  </div>
+  </div>
+
+{% endblock %}

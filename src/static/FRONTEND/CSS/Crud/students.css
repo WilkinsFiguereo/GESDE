@@ -1,0 +1,464 @@
+.container{
+    width: 70%;
+    margin-top: 5%;
+}
+.container-add_students {
+    width: 100%;
+    max-width: 500px;
+    margin: 10% auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.container-add_students h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 35px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.container-add_students form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.container-add_students label {
+    font-weight: 600;
+    color: #334155;
+    font-size: 15px;
+    display: block;
+    margin: 10px 0px;
+}
+
+.container-add_students select,
+.container-add_students input[type="text"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+    color: #1e293b;
+    appearance: none;
+    box-sizing: border-box;
+}
+
+.container-add_students select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+}
+
+.container-add_students select:focus,
+.container-add_students input[type="text"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.container-add_students .button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.container-add_students button {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.container-add_students button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.container-add_students button[type="submit"]:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.container-add_students button:first-of-type {
+    background-color: #ffffff;
+    color: #ffffff;
+    border: 1px solid #e2e8f0;
+}
+
+.container-add_students button:first-of-type:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+/* Mejoras para el datalist */
+#studentSuggestions {
+    border-radius: 8px;
+    margin-top: -5px;
+}
+
+/* Efecto para los botones al hacer clic */
+.container-add_students button:active {
+    transform: translateY(1px);
+}
+
+.container-add_students button a{
+    color: white;
+}
+/* Responsive */
+@media (max-width: 640px) {
+    .container-add_students {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+    
+    .container-add_students .button-group {
+        flex-direction: column;
+    }
+}
+
+/* Estilos generales del componente */
+.container-add_teacher {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.schedule-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.schedule-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 1.5rem 2rem;
+}
+
+.schedule-header h2 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.schedule-header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+.schedule-form {
+    padding: 2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 0;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2b2d42;
+    font-size: 0.9rem;
+}
+
+.form-label i {
+    margin-right: 8px;
+    color: #4361ee;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background-color: #f8fafc;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #4361ee;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    background-color: white;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid #edf2f7;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 0.95rem;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn-primary {
+    background-color: #4361ee;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3a56d4;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #edf2f7;
+    color: #4a5568;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e8f0;
+    transform: translateY(-2px);
+}
+
+/* Validación */
+.form-control:invalid {
+    border-color: var(--primary-color);
+}
+
+.form-control:invalid:focus {
+    box-shadow: 0 0 0 3px rgba(89, 151, 223, 0.2);
+}
+
+.form-group select{
+    box-sizing: border-box;
+}
+
+
+.new-grade{
+    cursor: pointer;
+    margin-top: 10px;
+    border: none;
+    margin-left: 5px;
+    background: none;
+}
+.container-add_grade {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container-add_grade h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.container-add_grade input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.container-add_grade input[type="text"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.container-add_grade input[type="text"]::placeholder {
+    color: #95a5a6;
+}
+
+.container-add_grade form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container-add_grade button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.container-add_grade button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.container-add_grade button[type="submit"]:hover {
+    background-color: #128ddf;
+    transform: translateY(-2px);
+}
+
+.container-add_grade button[type="button"] {
+    background-color: #f1f1f1;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.container-add_grade button[type="button"]:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+#btnEliminarEstudiante p{
+    max-height: 10px;
+}
+
+select option {
+    padding: 8px;
+    font-size: 14px;
+}
+
+select option::after {
+    content: attr(data-day);
+    float: right;
+    color: #666;
+    font-style: italic;
+}
+
+/* Mejorando el estilo del formulario */
+.schedule-card {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.schedule-form .form-group label {
+    font-weight: 600;
+    color: #4e4e4e;
+}
+
+.schedule-form .form-control {
+    border-radius: 5px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+}
+
+.schedule-form .btn {
+    width: 150px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.schedule-form .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.schedule-form .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.schedule-form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.schedule-form .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.schedule-form .form-group select {
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.schedule-form .form-group.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-volver {
+    background-color: #6c757d;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+/* Diseño responsive */
+@media (max-width: 600px) {
+    .container-add_grade {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 1200px){
+    .container{
+        width: 100%;
+    }
+}

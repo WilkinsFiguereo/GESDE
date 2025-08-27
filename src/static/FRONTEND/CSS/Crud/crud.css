@@ -1,0 +1,400 @@
+.container-listuser {
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos estén en columna */
+    align-items: center; /* Centra horizontalmente los elementos */
+    margin-left: auto; /* Centra el contenedor en la página */
+    width: 70%; /* Alinea el contenedor con el ancho de la tabla */
+}
+
+.seeker{
+    display: flex;
+    margin: 0 auto;
+    width: 90%;
+    padding: 10px 0;
+    border: 1px solid #ddd; 
+    background-color: var(--primary-color); /* Fondo blanco */
+}
+
+.seeker_students{
+    width: 90%;
+}
+
+.seeker h2{
+    color: white;
+    margin-left: 2%;
+    font-size: 20px;
+}
+
+.seeker img{
+    width: 25px;
+    height: auto;
+}
+
+.seeker button{
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0 10px;
+    margin-left: auto;
+}
+
+.seeker input{
+    border: none;
+    margin-right: 2%;
+    width: 200px;
+    border-radius: 10px;
+}
+
+
+.container-listuser h1{
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 5%;
+    padding: 20px 80px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 90%; /* Ancho de la tabla */
+    border-collapse: collapse; /* Unir bordes */
+    font-family: Arial, sans-serif !important;
+    margin: 0 auto;
+    font-size: 14px;
+    text-align: left;
+    background-color: #fdfdfd; /* Fondo blanco */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.table_students{
+    width: 90%;
+}
+
+.table_students table{
+    border-collapse: collapse; /* Unir bordes */
+    font-family: Arial, sans-serif !important;
+    margin: 0 auto;
+    font-size: 14px;
+    text-align: left;
+    background-color: #fdfdfd; /* Fondo blanco */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.table_students table th{
+    width: 400px;
+    color: white; /* Texto blanco */
+    padding: 12px; /* Espaciado interno */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    border: 1px solid #ddd;
+}
+/* Encabezado de la tabla */
+thead th {
+    background-color: var(--primary-color); /* Fondo verde */
+    color: white; /* Texto blanco */
+    padding: 12px; /* Espaciado interno */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    border: 1px solid #ddd;
+}
+
+
+/* Celdas del cuerpo */
+tbody td {
+    border: 1px solid #ddd; /* Bordes suaves */
+    padding: 10px 30px; /* Espaciado interno */
+    text-align: center; /* Centra el contenido horizontalmente */
+}
+
+
+
+/* Filas alternas */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Fondo gris claro */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: white; /* Fondo blanco */
+}
+
+/* Efecto hover */
+tbody tr:hover {
+    background-color: #f1f1f1; /* Fondo claro al pasar el mouse */
+    cursor: pointer;
+}
+
+/* Imágenes de la columna "Acción" */
+tbody td img {
+    width: 24px; /* Ajustar tamaño */
+    height: 24px;
+    margin-right: 8px; /* Espaciado entre imágenes */
+    vertical-align: middle; /* Centrar con el texto */
+    cursor: pointer; /* Mostrar cursor clickeable */
+    transition: transform 0.2s; /* Animación suave */
+}
+
+/* Animación hover para imágenes */
+tbody td img:hover {
+    transform: scale(1.1); /* Ampliar un poco al pasar el mouse */
+}
+
+/* Ancho específico para la columna "Acción" */
+tbody td:first-child {
+    width: 120px; /* Espacio reservado para imágenes */
+}
+
+.add-user {
+    text-align: right;
+    width: 100%;
+    color: white;
+    border-radius: 5px;
+    padding: 20px 0;
+    font-size: 16px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.add-user a {
+    background-color: var(--tertiary-color);
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 1%;
+    color: white;
+    transition: 0.5s;
+}
+
+.add-user a:hover {
+    background-color: #2a9749;
+}
+
+.icon-button {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    gap: 0;  /* Elimina cualquier espacio entre los elementos */
+}
+
+.icon-button a,
+.delete {
+    display: flex; 
+    margin: 0;
+    padding: 0;
+}
+
+.icon-button a img{
+    margin: 0; /* Asegura que no haya margen extra */
+}
+.edit, .delete, .see{
+    padding: 5px;
+}
+.edit{
+    background-color: goldenrod;
+    border-top-left-radius: 10px;
+    border-end-start-radius: 10px;
+}
+
+.delete {
+    border: none !important;
+    background-color: red;
+    height: 100%;
+    width: 100%;
+    display: flex; /* Activa flexbox */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    padding: 5px; /* Espaciado opcional */
+}
+
+.delete img {
+    height: 23px;
+    margin-left: 20%;
+}
+
+
+.see{
+    border: none;
+    background-color: rgb(0, 162, 255);
+    border-top-right-radius: 10px;
+    border-end-end-radius: 10px;
+}
+
+.enable{
+    border: none;
+    background-color: #10db49;
+    padding: 5px;
+    border-top-left-radius:  10px;
+    border-end-start-radius: 10px;
+}
+
+/* Pie de tabla */
+/* Asegura que la fila del tfoot tenga el color completo */
+tfoot tr {
+    background-color: var(--primary-color); /* Color primario de fondo */
+}
+
+/* Aplica estilos a las celdas del tfoot */
+tfoot td {
+    color: white; /* Texto blanco */
+    text-align: center; /* Centra el texto */
+    border: none; /* Sin bordes */
+}
+
+/* Ajusta el contenido del div dentro del tfoot */
+tfoot td .add-user {
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    width: 100%;
+    height: 100%;
+}
+
+.buttoncrud{
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Agrega esto a tu archivo CSS */
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.grade-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.grade-filter select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 800px) {
+    .seeker {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+    }
+
+    .seeker_students{
+        width: 100%;
+    }
+    .seeker img{
+        display: none;
+    }
+
+    .seeker h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .seeker input {
+        width: 90%;
+        margin: 10px 0;
+    }
+
+    .container-listuser{
+        width: 100%;
+    }
+
+    .scroll-table{
+        overflow-y: auto;  /* Agrega scroll vertical */
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+    
+    thead th {
+        padding: 8px;
+    }
+
+    tbody td {
+        padding: 8px;
+    }
+
+    .add-user {
+        text-align: center;
+    }
+
+    .add-user a {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    
+}
+
+@media (min-width: 801px) and (max-width: 1400px){
+    .seeker {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+    }
+
+    .seeker img{
+        display: none;
+    }
+
+    .seeker h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .seeker input {
+        width: 90%;
+        margin: 10px 0;
+    }
+
+    .container-listuser{
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 90%;
+    }
+    
+    thead th {
+        padding: 8px;
+    }
+
+    tbody td {
+        padding: 8px;
+    }
+
+    .add-user {
+        text-align: center;
+    }
+
+    .add-user a {
+        font-size: 14px;
+        padding: 8px;
+    } 
+}

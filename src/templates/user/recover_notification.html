@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Olvide mi Contraseña{% endblock %}
+    
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/recover.css') }}">
+{% endblock %}
+    
+{% block content %}
+    <div class="container-recover">
+        <div class="text-recover">
+            <h1>Por favor revisa tu número de teléfono</h1>
+            <p class="phone-number">+1 000 000 0000</p>
+        </div>
+        
+        <div class="message">
+            <p>Este es el número registrado. Verifica que sea correcto antes de continuar. Si es incorrecto, actualízalo para recibir mensajes de verificación y avisos.</p>
+            <div class="button">
+            <button onclick="window.location.reload();">Reenviar</button>
+        </div>
+
+        <div class="text">
+        <p>Si el número es incorrecto, por favor <a href="">actualizalo</a>. </p>
+    </div>
+        </div>
+        
+    </div>
+{% endblock %}

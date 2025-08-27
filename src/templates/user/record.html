@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}Enviado correctamente{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/record.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/excuseform.css') }}">
+{% endblock %}
+
+{% block content %}
+
+  <nav class="menuNav">
+    {% include 'menu.html' %}
+  </nav>
+
+  <div class="container-header">
+    <div class="container-text"><p>¡Hola <span>{{ usuario.name.split(' ')[0] }}</span>! Consulta el estado de tus excusas aqui.</p>
+        <a href="{{url_for('homepage.homepage')}}"><button>Volver</button></a>
+    </div>
+    <div class="img-header">
+    <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/G-removebg-preview.png') }}">
+
+
+</div>
+</div>
+    <div class="container-record">
+        <div class="menu-record">
+            <div class="titulo-record">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/pading/calendario.png') }}" alt="">
+                <h1>Historial de excusas</h1>
+            </div>
+            
+            
+        </div>
+
+        <div class="seeker-record">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/lupa.png') }}" alt="">
+            <input type="text" placeholder="Buscar excusa..">
+        </div>
+
+        <div class="table-record" id="tablaExcusas">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/usuario (1).png') }}" alt="">
+                            <span>Estudiante</span>
+                        </th>
+                        <th>
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/tope-de-grado.png') }}" alt="">
+                            <span>Grado</span>
+                        </th>
+                        <th>
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/prohibido.png') }}" alt="">
+                            <span>Motivo</span>
+                        </th>
+                        <th>
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/escritura (1).png') }}" alt="">
+                            <span>Descripcion</span>
+                        </th>
+                        <th>
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/calendario (3).png') }}" alt="">
+                            <span>Fecha de excusa</span>
+                        </th>
+                        <th>
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/calendario (3).png') }}" alt="">
+                            <span>Días de ausencia</span>
+                        </th>
+                        <th>
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/archivo (2).png') }}" alt="">
+                            <span>Archivo evidencia</span>
+                        </th>
+                        <th>
+                            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/archivo (2).png') }}" alt="">
+                            <span>Estado</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if excusas %}
+                    {% set lista_excusas = excusas | list %}
+                    {% for excusa in lista_excusas %}
+                        <tr>
+                            <td><span>{{ excusa.student_name }}</span></td>
+                            <td><span>{{ excusa.grade }}</span></td>
+                            <td><span>{{ excusa.reason }}</span></td>
+                            <td><span>{{ excusa.specification }}</span></td>
+                            <td>
+                                <img src="{{ url_for('static', filename='ASSETS/IMG/pading/calendario (3).png') }}" alt="">
+                                <span>{{ excusa.excuse_date.strftime('%Y-%m-%d') }}</span>
+                            </td>
+                            <td><span>{{ excusa.excuse_duration }}</span></td>
+                            <td>
+                                <span>
+                                    <a href="{{ url_for('excuse.view_file', excuse_id=excusa.id_excuse) }}" target="_blank">
+                                        <img src="{{ url_for('static', filename='ASSETS/IMG/Login/iconLogin/eye-svgrepo-com.svg') }}" alt="">
+                                        Ver archivo
+                                    </a>
+                                </span>
+                            </td>
+                            <td>
+                                {% if excusa.status == 'Aceptada' %}
+                                    <span class="aprobado">Aprobado 
+                                        <img src="{{ url_for('static', filename='ASSETS/IMG/pading/marca-de-verificacion.png') }}" alt="">
+                                    </span>
+                                {% elif excusa.status == 'Rechazada' %}
+                                    <span class="rechazado">Rechazado 
+                                        <img src="{{ url_for('static', filename='ASSETS/IMG/pading/rechazado.png') }}" alt="">
+                                    </span>
+                                {% else %}
+                                    <span class="pendiente">Pendiente 
+                                        <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/reloj-de-pared.png') }}" alt="">
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="8">No hay excusas registradas.</td>
+                    </tr>
+                {% endif %}
+                
+                    
+                </tbody>
+
+                <img src="{{ url_for('static', filename='ASSETS/IMG/HomeImg/paya.png') }}" alt="" class="paya" id="btnScrollFinal">
+            </table>
+        </div>
+
+        <div class="pagination">
+            {% if has_prev %}
+              <a href="{{ url_for('record.historial_excusas', page=page-1) }}"> 
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}" alt="" style="transform: rotate(180deg);"> 
+              </a>
+            {% endif %}
+            
+            <span>
+              Página {{ page }} de 
+              {{ (total_excusas // 10) + (1 if total_excusas % 10 > 0 else 0) }}
+            </span>
+            
+            {% if has_next %}
+              <a href="{{ url_for('record.historial_excusas', page=page+1) }}"> 
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}" alt=""> 
+              </a>
+            {% endif %}
+          </div>
+
+        
+          
+    </div>
+    
+  {% include 'user/assistant.html' %}
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const botonPaya = document.getElementById('btnScrollFinal');
+  const tabla = document.getElementById('tablaExcusas');
+
+  botonPaya.addEventListener('click', () => {
+    // Si ya está casi al final (derecha)
+    if (Math.ceil(tabla.scrollLeft) >= tabla.scrollWidth - tabla.clientWidth) {
+      // Scroll a la izquierda (inicio)
+      tabla.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      // Scroll a la derecha (final)
+      tabla.scrollTo({
+        left: tabla.scrollWidth,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar usuario{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/addcrud.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/menuside.css') }}">
+<style>
+    .child-input-group {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .child-input-group select {
+        flex: 1;
+        min-width: 120px;
+        padding: 6px 8px;
+        height: 38px;
+    }
+    .remove-child-btn {
+        background: none;
+        border: none;
+        color: #dc3545;
+        cursor: pointer;
+        font-size: 1.2em;
+        padding: 0 5px;
+    }
+    #add-child-btn {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        margin: 5px 0 15px 0;
+    }
+    .child-label {
+        min-width: 80px;
+        font-size: 0.9em;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    {% include 'menu.html' %}
+
+    <div class="content-wrapper">
+        <div class="container-menu-side" style="height: 150vh;">
+            {% include 'crud/side-menu.html' %}
+        </div>
+
+        <div class="container-add">
+            <h1>Editar usuario</h1>
+            <form action="{{ url_for('edit_user.edit_user', user_id=usuario.id) }}" method="post">
+                <label>Nombre</label>
+                <div class="container-formadd">
+                    <input type="text" name="nameedit" value="{{ usuario.name }}" placeholder="Nombre" required>
+                    <label>Cédula</label>
+                    <input type="text" name="idcardedit" value="{{ usuario.idcard }}" placeholder="XXX-XXXXXXX-X" maxlength="13" oninput="formatIDCard(this)" required>
+                    <label>Teléfono</label>
+                    <input type="text" name="phoneedit" value="{{ usuario.phone }}" maxlength="14" placeholder="(000)-000-0000" oninput="formatPhoneNumber(this)" required>
+                    <label>Rol</label>
+                    <select name="roledit" id="roleSelect" onchange="toggleChildrenSection()">
+                        <option value="administration" {% if usuario.rol == 'administration' %}selected{% endif %}>Administración escolar</option>
+                        <option value="teacher" {% if usuario.rol == 'teacher' %}selected{% endif %}>Profesor</option>
+                        <option value="parent" {% if usuario.rol == 'parent' %}selected{% endif %}>Padre</option>
+                        <option value="admin" {% if usuario.rol == 'admin' %}selected{% endif %}>Admin</option>
+                    </select>
+
+                    <!-- Sección de hijos (solo para padres) -->
+                    <div id="children-section" {% if usuario.rol == 'parent' %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                        <h3>Hijos asignados</h3>
+                        <div id="children-container">
+                            {% for child in children %}
+                            <div class="child-input-group">
+                                <span class="child-label">Hijo {{ loop.index }}:</span>
+                                <select name="grado[]" class="gradoSelect" required>
+                                    <option value="">Seleccione grado</option>
+                                    {% for grade in grades %}
+                                    <option value="{{ grade.grade }}" {% if grade.grade == child.grade %}selected{% endif %}>{{ grade.grade }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select name="student_id[]" class="studentSelect" required>
+                                    <option value="">Seleccione estudiante</option>
+                                    {% for student in students %}
+                                    <option value="{{ student.id }}" {% if student.id == child.student_id %}selected{% endif %}>{{ student.name }} ({{ student.grade }})</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="button" class="remove-child-btn" {% if loop.first and children|length == 1 %}style="visibility:hidden"{% endif %}>×</button>
+                            </div>
+                            {% else %}
+                            <div class="child-input-group">
+                                <span class="child-label">Hijo 1:</span>
+                                <select name="grado[]" class="gradoSelect" required>
+                                    <option value="">Seleccione grado</option>
+                                    {% for grade in grades %}
+                                    <option value="{{ grade.grade }}">{{ grade.grade }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select name="student_id[]" class="studentSelect" required>
+                                    <option value="">Seleccione estudiante</option>
+                                </select>
+                                <button type="button" class="remove-child-btn" style="visibility:hidden">×</button>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button type="button" id="add-child-btn">+ Agregar hijo</button>
+                    </div>
+
+                    <label>Contraseña</label>
+                    <input type="text" name="passwordedit" placeholder="Dejar en blanco para no cambiar" value="">
+                </div>
+                <button type="submit">Guardar cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='JS/autocomplet.js') }}"></script>
+    <script>
+    // Datos globales
+    const allStudents = JSON.parse('{{ students | tojson | safe }}');
+    let childCount = {{ children|length if children is defined else 1 }};
+    const maxChildren = 5;
+
+    // Mostrar/ocultar sección de hijos
+    function toggleChildrenSection() {
+        const isParent = document.getElementById('roleSelect').value === 'parent';
+        document.getElementById('children-section').style.display = isParent ? 'block' : 'none';
+    }
+
+    // Filtrar estudiantes por grado
+    function filterStudents(selectElement) {
+        const grade = selectElement.value;
+        const studentSelect = selectElement.parentElement.querySelector('.studentSelect');
+        
+        studentSelect.innerHTML = '<option value="">Cargando...</option>';
+        studentSelect.disabled = true;
+
+        if (!grade) {
+            studentSelect.innerHTML = '<option value="">Seleccione grado primero</option>';
+            return;
+        }
+
+        const filtered = allStudents.filter(s => s.grade === grade);
+        studentSelect.innerHTML = filtered.length 
+            ? '<option value="">Seleccione estudiante</option>' + 
+              filtered.map(s => `<option value="${s.id}">${s.name} (${s.grade})</option>`).join('')
+            : '<option value="">No hay estudiantes</option>';
+        studentSelect.disabled = false;
+    }
+
+    // Eliminar hijo
+    function removeChild(button) {
+        const childGroup = button.closest('.child-input-group');
+        childGroup.remove();
+        childCount--;
+        
+        // Actualizar números de los hijos restantes
+        const childGroups = document.querySelectorAll('.child-input-group');
+        childGroups.forEach((group, index) => {
+            group.querySelector('.child-label').textContent = `Hijo ${index + 1}:`;
+        });
+        
+        // Ocultar botón de eliminar si solo queda un hijo
+        if (childCount === 1) {
+            document.querySelector('.remove-child-btn').style.visibility = 'hidden';
+        }
+    }
+
+    // Delegación de eventos para el botón de eliminar
+    document.getElementById('children-container').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-child-btn')) {
+            removeChild(e.target);
+        }
+    });
+
+    // Agregar nuevo hijo
+    document.getElementById('add-child-btn').addEventListener('click', function() {
+        if (childCount >= maxChildren) {
+            alert('Máximo de 5 hijos permitidos');
+            return;
+        }
+
+        childCount++;
+        const container = document.getElementById('children-container');
+        const newChild = document.createElement('div');
+        newChild.className = 'child-input-group';
+        newChild.innerHTML = `
+            <span class="child-label">Hijo ${childCount}:</span>
+            <select name="grado[]" class="gradoSelect" onchange="filterStudents(this)" required>
+                <option value="">Seleccione grado</option>
+                {% for grade in grades %}<option value="{{ grade.grade }}">{{ grade.grade }}</option>{% endfor %}
+            </select>
+            <select name="student_id[]" class="studentSelect" required>
+                <option value="">Seleccione estudiante</option>
+            </select>
+            <button type="button" class="remove-child-btn">×</button>
+        `;
+        
+        container.appendChild(newChild);
+        
+        // Mostrar todos los botones de eliminar
+        document.querySelectorAll('.remove-child-btn').forEach(btn => {
+            btn.style.visibility = 'visible';
+        });
+    });
+
+    // Inicializar filtrado para selects existentes
+    document.querySelectorAll('.gradoSelect').forEach(select => {
+        if (select.value) {
+            filterStudents(select);
+        }
+        select.addEventListener('change', function() {
+            filterStudents(this);
+        });
+    });
+    </script>
+{% endblock %}

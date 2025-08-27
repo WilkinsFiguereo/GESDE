@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/view-profile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/GenericCSS/general.css') }}">
+
+    <div class="contain-view-profile">
+        <div class="view-profile">
+            <button class="close-btn" >&times;</button>
+            
+            <div class="img-view">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/usuario.png') }}" alt="Foto de perfil">
+                <h2>{{ usuario.nombre }}</h2>
+                <div class="text-img">
+                    <p>{{ usuario.rol }}</p>
+                </div>
+            </div>
+            
+            <div class="info-view">
+                <h2>Información de usuario</h2>
+                <div class="colum">
+                    <div class="colum-view">
+                        <div class="info-item">
+                            <h3>Nombre completo</h3>
+                            <p>{{ usuario.nombre }}</p>
+                        </div>
+                        <div class="info-item">
+                            <h3>Id</h3>
+                            <p>ID-{{ usuario.id }}</p>
+                        </div>
+                        <div class="info-item">
+                            <h3>Cédula</h3>
+                            <p>{{ usuario.cedula }}</p>
+                        </div>
+                        <div class="info-item">
+                            <h3>Teléfono</h3>
+                            <p>{{ usuario.telefono }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="colum-view">
+                        
+                        <div class="info-item">
+                            <h3>Última actividad</h3>
+                            <p>{{ usuario.ultima_actividad }}</p>
+                        </div>
+                        <div class="info-item">
+                            <h3>Estado</h3>
+                            <p>{{ usuario.estado }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

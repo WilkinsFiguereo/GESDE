@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de trabajadores{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/crud.css') }}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/menuside.css') }}"> 
+{% endblock %}
+
+{% block content %}
+
+        {% include 'menu.html' %}
+
+    <div class="content-wrapper">  
+        <div class="container-menu-side" id="menuSidebar">
+            {% include 'crud/side-menu.html' %}
+        </div>
+        <div class="container-listuser">
+        <h1>Lista de trabajadores</h1>
+        
+        
+        <div class="scroll-table"> 
+        <table id="usuariosTable">
+            <div class="seeker">
+                <h2>Lista de trabajadores</h2>
+                <button type="submit"><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/lupa.png') }}" alt="Buscar"></button>
+                <input type="text" id="search" placeholder="Buscar usuario" onkeyup="buscarUsuario()"> <!-- Se elimina el id duplicado -->
+            </div>
+            <thead>
+                <tr>
+                    <th>Acción</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cedula</th>
+                    <th>Telefono</th>
+                    <th>Rol</th>
+                    <th>Última Actualización</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if usuarios %}
+                    {% for usuario in usuarios %}
+                        {% if usuario.rol != 'parent' %}
+                        <tr>
+                            <td class="action">
+                                <div class="icon-button">
+                                    <a href="{{ url_for('edit_user.edit_user', user_id=usuario.id) }}"><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/edit-3-svgrepo-com.svg') }}" class="edit"></a>
+                                    <form action="{{ url_for('disable_user.disable_user', user_id=usuario.id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas deshabilitar este usuario?');">
+                                        <button type="submit" class="delete">
+                                            <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/delete-2-svgrepo-com.svg') }}" alt="Eliminar">
+                                        </button>
+                                    </form>   
+                                    <a href="javascript:void(0);" class="ver-perfil-btn" data-userid="{{ usuario.id }}">
+                                        <img src="{{ url_for('static', filename='ASSETS/IMG/Login/iconLogin/eye-svgrepo-com.svg') }}" class="see">
+                                    </a>
+                                </div>
+                            </td>
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.name }}</td>
+                            <td>{{ usuario.idcard }}</td>
+                            <td>{{ usuario.phone }}</td>
+                            <td>{{ usuario.rol}}</td>
+                            <td>{{ usuario.last_updated }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6">No hay usuarios registrados.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+                    <tfoot>
+                <tr >
+                    <th colspan="7">
+                        <div class="add-user">
+                        <a href="{{ url_for('adduser.add_user') }}">Agregar Usuario</a>
+                        </div>
+                </th>
+                </tr>
+            </tfoot>
+            
+        </table>
+
+        <div class="pagination">
+            {% if has_prev %}
+              <a href="{{ url_for('listworker.listworker', page=page-1,per_page=per_page, search=search) }}">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}"
+                     alt="Anterior" style="transform: rotate(180deg);">
+              </a>
+            {% endif %}
+          
+            <span>
+              Página {{ page }} de {{ (total_users // 6) + (1 if total_users % 6 > 0 else 0) }}
+            </span>
+          
+            {% if has_next %}
+              <a href="{{ url_for('listworker.listworker', page=page+1, per_page=per_page, search=search) }}">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}"
+                     alt="Siguiente">
+              </a>
+            {% endif %}
+          </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="contain-view-profile" style="display: none;">
+    <div class="view-profile" >
+        {% include 'crud/view-profile.html' %}
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='JS/crud.js') }}"></script>
+<script src="{{ url_for('static', filename='JS/view-profile.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,106 @@
+.report-generator{
+    margin: 6% 30px;
+    width: 70%;
+}
+
+.report-generator h1{
+    font-size: 35px;
+    font-weight: 650;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.report-box {
+    margin-top: 30px;
+    padding-top: 30px;
+    display: flex;
+    align-items: center; /* Alinea verticalmente */
+    padding: 25px;
+    width: 100%;
+    gap: 15px; /* Espacio entre la imagen y el texto */
+    box-sizing: border-box;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px;
+}
+
+.img img {
+    width: 50px;
+    height: 50px;
+}
+
+.action {
+    display: flex;
+    align-items: center; /* Asegura que el h2 y el botón estén alineados */
+    gap: 15px; /* Espaciado entre el texto y el botón */
+}
+
+.action h2 {
+    font-size: 30px;
+    font-weight: 650;
+    color: var(--primary-color);
+    margin: 0; /* Evita márgenes extra */
+}
+
+.action button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: rgb(0, 140, 255);
+    color: white;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: auto; /* Empuja el botón a la derecha */
+}
+
+.action{
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+}
+.title{
+    display: flex;
+    gap: 10px;
+}
+
+.title img{
+    width: 40px;
+    height: 40px;
+}
+
+.text p{
+    color: rgb(161, 161, 161);
+}
+
+@media (min-width: 810px) and (max-width: 1200px){
+    .report-generator{
+        width: 95%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 800px){
+    .report-generator{
+        margin: 20px;
+        width: 95%;
+        box-sizing: border-box;
+    }
+
+    .report-box{
+        margin-top: 30px;
+        display: block;
+    }
+
+    .img{
+        text-align: center;
+    }
+    .action{
+        display: block;
+        text-align: center;
+    }
+
+    .action button{
+        margin: 20px 0px;
+        font-size: 25px;
+        padding: 15px 40px;
+    }
+}

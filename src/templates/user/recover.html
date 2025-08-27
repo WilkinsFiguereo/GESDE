@@ -1,0 +1,43 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Recuperar contraseña{% endblock %}
+    
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/recover.css') }}">
+{% endblock %}
+    
+{% block content %}
+    <div class="container-recover">
+        
+        <form action="{{ url_for('recover.recover') }}" method="POST" enctype="multipart/form-data">
+            <div class="text-recover">
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+                <h1>Ingresa tu cedula</h1>
+                <p>Porfavor ingrese su cedula para confirmar su identidad.</p>
+            </div>
+            <div class="input-recover">
+                <input type="text" placeholder="XXX-XXXXXXX-X" name="idcard" id="idCardInput" maxlength="13" oninput="formatIDCard(this)" required>
+            </div>
+            <div class="button">
+                <button type="submit">
+                    Recuperar
+                </button>
+            </div>
+
+            <div class="links">
+                <a href="">Volver al inicio</a>
+                <p>|</p>
+                <a href="{{ url_for('contact.contact') }}">Contáctanos</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='JS/autocomplet.js') }}"></script>
+    {% endblock %}

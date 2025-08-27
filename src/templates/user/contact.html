@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Contactanos{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/contact.css') }}">
+{% endblock %}
+
+{% block content %}
+  
+  <main>
+    <nav class="menuNav">
+      {% include 'menu.html' %}
+    </nav>
+    <div class="container-contact">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/Gesde sin fondo negro.png') }}" alt="Logo Gesde">
+        </div>
+        <div class="title-contact">
+            <h2>¿Tienes algún problema?</h2>
+            <p>Envíanos un mensaje y nosotros te ayudaremos lo más pronto posible</p>
+        </div>
+        <div class="form-contact">
+            <form action="{{ url_for('contact.contact') }}" method="post">
+                <label for="problem">Mensaje</label>
+                <textarea id="problem" name="problem" placeholder="Describe tu problema o consulta aquí..." required></textarea>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

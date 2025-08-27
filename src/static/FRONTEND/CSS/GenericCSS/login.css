@@ -1,0 +1,186 @@
+:root {
+    --primary-color: #0061c2;
+    --secondary-color: #d3d3d3;
+    --tertiary-color: #2da44e;
+}
+
+body {
+    background-image: url("../../../ASSETS/IMG/Login/giesde-login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajusta la imagen al tamaño del contenedor sin distorsionarla */
+    background-position: center; /* Centra la imagen */
+    width: 100%;
+    height: 100vh;
+}
+
+
+.container-login {
+    display: flex;
+    position: relative;
+    top: 10%;
+    left: 10%;
+    max-width: 90%;
+}
+
+.login {
+    display: block;
+    background-color: white;
+    width: 30%;
+    display: flex; /* Utiliza flexbox */
+    flex-direction: column; /* Alinea los elementos en columna */
+    margin: 0;
+    padding: 50px 20px;
+}
+
+.img-logo img {
+    width: 200px;
+    max-width: 100%;
+    height: auto;
+    margin: 0px auto 0; 
+    display: block;
+}
+
+.login h1{
+    padding: 20px 0;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.login h2 {
+    padding: 10px 0;
+    margin: 0px 10%;
+}
+
+.login input {
+    flex: 1; 
+    border: none;
+    height: 30px; 
+    width: 100%; 
+    box-sizing: border-box;
+    outline: none;
+    background: none;
+}
+
+.container-email, .container-password{
+    display: flex;
+    justify-content: flex-start; /* Alinea los elementos a la izquierda */
+    align-items: center; /* Centra verticalmente los iconos */
+    position: relative;
+    border-radius: 7px;
+    border: 2px solid black;;
+    height: 50px;
+    padding: 0px 10px; 
+    box-sizing: border-box; 
+    margin: 0px 10%;
+}
+
+.icon-email, .icon-password {
+    width: 30px;
+}
+.icon-password {
+    cursor: pointer;
+}
+
+
+.login button {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    background-color: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 20px auto 0; /* Centrado horizontal, margin-top de 20px */
+    display: block; /* Convierte el botón en un bloque para que tome todo el ancho disponible */
+    width: 100%; /* El botón ocupa todo el ancho */
+    max-width: 300px; /* Limita el tamaño máximo del botón */
+}
+
+
+.login .oc{
+    color: black;
+    position: relative;
+    padding: 10px;
+    text-align: center;
+}
+
+.TermsConditions p{
+    padding: 30px;
+    text-align: center;
+    font-size: 10px;
+}
+
+.TermsConditions .TermsPolicy{
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    text-align: center; /* Centra el texto dentro del contenedor */
+}
+
+.TermsConditions .TermsPolicy a{
+    color: black;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: underline;
+}
+
+.img-right{
+    background-image: url("../../../ASSETS/IMG/Login/login.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 57%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+
+
+@media (max-width: 840px){
+
+    body{
+        background-size: cover;
+        height: 140vh;
+    }
+    .img-right{
+        display: none;
+    }
+
+    .container-login{
+        left: 5%;
+        top: 3%;
+    }
+    .login{
+        width: 100%;
+        border-radius: 20px;
+    }
+}
+
+@media (min-width: 841px) and (max-width: 1300px){
+    body{
+        background-size: cover;
+        height: 130vh;
+    }
+    
+    .img-right{
+        display: none;
+    }
+
+    .container-login{
+        left: 5%;
+    }
+    .login{
+        width: 100%;
+        border-radius: 30px;
+        padding: 100px 0px;
+    }
+
+    .login button{
+        margin-top: 50px;
+    }
+
+
+}

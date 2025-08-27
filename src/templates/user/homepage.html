@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}GESDE{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/homapage.css') }}">
+{% endblock %}
+
+{% block content %}
+  
+  <main>
+    <nav class="menuNav">
+      {% include 'menu.html' %}
+    </nav>
+
+    <div class="conatiner-homepage">
+      <div class="container-lef">
+        <h1>Bienvenido/a, <span id="animatedName">{{ usuario.name.split(' ')[0] }}</span>.</h1>
+        <p id="animatedP">¡Envía tus excusas de manera rápida y sencilla!</p>
+      </div>
+      <div class="container-right">
+        <h1>Gestión Digital de Excusas</h1>
+        <p>¡Envía tus excusas de manera rápida y sencilla!</p>
+        <div class="button-right button-big">
+          <button><a href="{{ url_for('excuse.excuse') }}">Mandar excusa</a></button>
+        </div>
+        <div class="button-right button-small">
+          <button><a href="{{ url_for('record.historial_excusas') }}">Historial de excusas</a></button>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  {% include 'user/assistant.html' %}
+  
+  <script src="{{ url_for('static', filename='JS/user.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %}Enviar excusa{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/excuseform.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <nav class="menuNav">
+        {%include 'menu.html'%}
+    </nav>
+
+    <div class="container-header">
+        <div class="container-text"><p>Hola <span>{{ usuario.name.split(' ')[0] }}.</span> manda tu excusa aquí de forma sencilla</p>
+            <a href="{{url_for('homepage.homepage')}}"><button>Volver</button></a>
+        </div>
+        <div class="img-header">
+        <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/G-removebg-preview.png') }}">
+
+
+    </div>
+    </div>
+    <div class="container-excuse">
+        <div class="img-form">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/excuse.png') }}">
+        </div>
+        <form action="{{ url_for('excuse.excuse') }}" method="POST" enctype="multipart/form-data">
+            <h1>Solicitar permiso de ausencia</h1>
+            {% if error %}
+    <div class="error-message" style="color: red; margin-bottom: 15px;">
+        {{ error }}
+    </div>
+    {% endif %}
+            <fieldset>
+                <legend>Detalles de la Excusa</legend>
+                <div class="container-one">
+                    <div class="label">
+                        <label for="grad" class="grad" ><img src="{{ url_for('static', filename='ASSETS/IMG/pading/tope-de-grado.png') }}" alt="">  Grado:</label>
+                        <label for="studentName" class="grad" style="gap: 0px;"><img src="{{ url_for('static', filename='ASSETS/IMG/pading/usuario (1).png') }}" alt=""> Mi hijo: </label>
+                        </div>
+                    <div class="inputs"> 
+                      <select id="grad" name="grad" required>
+                            <option value="">Seleccione un grado</option>
+                            {% for grado in grados %}
+                                <option value="{{ grado }}" {% if grad_seleccionado == grado %}selected{% endif %}>{{ grado }}</option>
+                            {% endfor %}
+                        </select>
+
+
+                
+                        <!-- En cualquier parte dentro del <body>, preferiblemente cerca del formulario -->
+                            
+                        <select id="studentName" name="studentName" required>
+    <option value="">Seleccione un hijo</option>
+    {% for hijo in hijos %}
+        <option value="{{ hijo.id }}" {% if hijo.id == hijo_seleccionado %}selected{% endif %}>
+            {{ hijo.name }}
+        </option>
+    {% endfor %}
+</select>
+
+                    </div>
+                </div>
+                
+                
+
+                <label for="reason">Razón de la ausencia: </label>
+                <select name="razon" id="razonSelect" required>
+                        <option value="" disabled selected>Seleccione una razón</option>
+                        <option value="Salud">Salud</option>
+                        <option value="Compromisos familiares">Compromisos familiares</option>
+                        <option value="Emergencias personales">Emergencias personales</option>
+                        <option value="Cita previa ineludible">Cita previa ineludible</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                
+                
+
+                <!-- Input para "Especifica" -->
+                <input type="text" id="otroInput" placeholder="Especifica..." name="razon_otros" style="display: none;"maxlength="30" required>
+                <label for="date">Fecha de la excusa: </label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="duration">Duración de la ausencia: </label>
+              
+                <select name="duration" id="duration" required>
+                    <option value="" disabled selected>Seleccione una duración</option>
+                    <option value="1 día">1 día</option>
+                    <option value="2 días">2 días</option>
+                    <option value="3 días">3 días</option>
+                    <option value="4 días">4 días</option>
+                    <option value="5 días">5 días</option>
+                    <option value="indefinido">Indefinido</option>
+                </select>
+                <label for="specification" >Descripcion</label>
+                <input type="text" style="padding-bottom: 30px;" name="specification" required>
+                <div class="file-upload">
+                    <label for="file" class="file-upload-label">
+                        <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/subir.png') }}" alt="Subir archivo" class="upload-icon">
+                        <span>Adjuntar evidencia</span>
+                    </label>
+                    <input type="file" id="file" name="file" accept="image/*,application/pdf">
+                    <p class="file-name">Ningún archivo seleccionado</p>
+                </div>
+            </fieldset>
+
+            <button type="reset">Eliminar</button>
+            <button type="submit">Enviar Excusa</button>
+        </form>
+    </div>
+
+
+    {% include 'user/assistant.html' %}
+    <!-- Esto pasa parent_id desde el backend -->
+
+    
+<script>
+document.getElementById('grad').addEventListener('change', function() {
+    const grade = this.value;
+    const studentSelect = document.getElementById('studentName');
+    
+    // Limpiar opciones actuales
+    studentSelect.innerHTML = '<option value="">Cargando...</option>';
+
+    if (!grade) {
+        studentSelect.innerHTML = '<option value="">Seleccione un hijo</option>';
+        return;
+    }
+
+    fetch(` /GESDE/get_students_by_grade?grade=${encodeURIComponent(grade)}`)
+        .then(response => response.json())
+        .then(data => {
+            let options = '<option value="">Seleccione un hijo</option>';
+            data.forEach(hijo => {
+                options += `<option value="${hijo.id}">${hijo.name}</option>`;
+            });
+            studentSelect.innerHTML = options;
+        })
+        .catch(error => {
+            console.error('Error al cargar hijos:', error);
+            studentSelect.innerHTML = '<option value="">Error al cargar hijos</option>';
+        });
+});
+
+document.getElementById('razonSelect').addEventListener('change', function() {
+    const otroInput = document.getElementById('otroInput');
+    if (this.value === 'otros') {
+        otroInput.style.display = 'block';
+        otroInput.setAttribute('required', '');
+    } else {
+        otroInput.style.display = 'none';
+        otroInput.removeAttribute('required');
+    }
+});
+</script>
+    <script src="{{ url_for('static', filename='JS/user.js') }}"></script>
+
+{% endblock %}

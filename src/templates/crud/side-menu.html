@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/menuside.css') }}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/GenericCSS/general.css') }}">   
+        <nav class="sidebar">
+            <div class="logo-sidebar">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/Gesde sin fondo negro.png') }}" alt="">
+                <h2>GESDE CRUD</h2>
+              </div>
+            <ul>
+                <a href="{{ url_for('dashboard.dashboard') }}">
+                    <li><i><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/analisis.png') }}" alt=""></i><span>Dashboard</span></li>
+                </a>
+                
+                <a href="{{ url_for('listcrud.listuser') }}">
+                    <li><i><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/user-interface.png') }}" alt=""></i><span>Lista de usuarios</span></li>
+                </a>
+                <a href="{{ url_for('listcrud.liststudent') }}">
+                    <li><i><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/user-interface.png') }}" alt=""></i><span>lista de estudiantes</span></li>
+                </a>
+                <a href="{{ url_for('listworker.listworker') }}">
+                    <li><i><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/user-interface.png') }}" alt=""></i><span>Lista de trabajadores</span></li>
+                </a>
+                <a href="{{ url_for('disable.disable') }}">
+                    <li><i><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/user-interface.png') }}" alt=""></i><span>Usuarios deshabilitado</span></li>
+                </a>
+                <a href="{{ url_for('reporturl.reporturl') }}">
+                    <li><i><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/informe.png') }}" alt=""></i><span>Reportes</span></li>
+                </a>
+                <a href="{{ url_for('shedule.save_schedule') }}">
+                    <li><i><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/estudiante.png') }}" alt=""></i><span>Agregar estudiantes</span></li>
+                </a>
+                    <li><i><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/cerrar-sesion.png') }}" alt=""></i> 
+                        <form action="{{ url_for('logout.logout') }}" method="GET">
+                        <button type="submit">Cerrar Sesión</button>
+                    </form></li>
+                
+            </ul>
+            
+        </nav>

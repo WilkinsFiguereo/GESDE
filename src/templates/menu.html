@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/GenericCSS/menu.css') }}" 
+onerror="this.onerror=null; this.href='/src/static/FRONTEND/CSS/GenericCSS/menu.css';">
+<link rel="stylesheet" href="/src/static/FRONTEND/CSS/GenericCSS/general.css">
+
+{%if usuario.rol != 'administration'%}
+    <div class="container-menu">
+        <div class="menu">
+
+
+            {% if usuario.rol == 'parent'%}
+            <div class="icon-menu" id="menuButton">
+                <a href="{{url_for('homepage.homepage')}}">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/Gesde sin fondo negro.png') }}" alt="Menu Icon">
+            </a>
+            </div>
+            {%else%}
+            <div class="icon-menu" id="menuButton">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/Gesde sin fondo negro.png') }}" alt="Menu Icon">
+            </div>
+            {%endif%}
+            <h2>GESDE</h2>
+            <p>{{ usuario.profile_pic }}</p>  {# Asegúrate de que imprima correctamente la ruta #}
+
+        </div>
+        
+        <div class="icon-profile" onclick="toggleProfileBox()">
+            {% if g.usuario %}
+            <img src="{{ url_for('static', filename='profile_pics/' + (g.usuario.profile_pic or 'default.jpg')) }}">
+
+            {% else %}
+                <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/usuario.png') }}"
+                     alt="Imagen de perfil predeterminada">
+            {% endif %}
+        </div>
+        
+    </div>
+
+    <div class="profile-box" id="profileBox">
+       
+        <div class="profile-header">
+            <a href="{{url_for('profile.profile')}}">
+                {% if g.usuario %}
+                <img src="{{ url_for('static', filename='profile_pics/' + (g.usuario.profile_pic or 'default.jpg')) }}">
+    
+                {% else %}
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/usuario.png') }}"
+                         alt="Imagen de perfil predeterminada">
+                {% endif %}
+                </a>
+            <h2 class="profile-name">{{ usuario.name if usuario else 'N/A'}}</h2>
+            <p class="profile-role">{{ usuario.rol if usuario else 'N/A' }}</p>
+        </div>
+        
+        <div class="profile-info">
+            <p><strong>Cédula:</strong> {{ usuario.idcard if usuario else 'N/A' }}</p>
+            <p><strong>Teléfono:</strong> {{ usuario.phone if usuario else 'N/A' }}</p>
+        </div>
+      
+        <div class="profile-actions">
+            <form action="{{ url_for('logout.logout') }}" method="GET">
+                <button type="submit" class="logout">Cerrar Sesión</button>
+            </form>
+            <p><a href="{{ url_for('contact.contact') }}"> ¿Tiens algun problema?, contáctanos</a></p>
+        </div>
+    </div>
+    
+{%endif%}
+
+{%if usuario.rol == 'administration'%}
+
+<div class="container-menu">
+    <div class="menu">
+        <div class="icon-menu">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/Gesde sin fondo negro.png') }}">
+        </div>
+        <h2>GESDE</h2>
+        <div class="list-menu">
+        <ul>
+            <a href="{{url_for('rejected.rejected')}}"><li>Excusas rechazada</li></a>
+            <a href="{{url_for('accept.accept')}}"><li>Excusa aceptadas</li></a>
+            <a href="{{url_for('pending.pending')}}"><li>Excusas pendienetes</li></a>
+        </ul>
+    </div>
+    </div>
+    
+    <!-- Icono para mostrar el perfil -->
+    <div class="icon-profile" onclick="toggleProfileBox()">
+        <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/usuario.png') }}" 
+             onerror="this.src='/src/static/ASSETS/IMG/GenericImg/usuario.png';">
+    </div>
+</div>
+
+<!-- Cuadro de perfil -->
+<div class="profile-box" id="profileBox">
+    <div class="profile-header">
+        <a href="{{url_for('profile.profile')}}">
+            <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/usuario.png') }}" 
+                 alt="Foto de Perfil" class="profile-img">
+                </a>
+        <!-- Asegurarse de que 'usuario' esté definido antes de acceder a sus atributos -->
+        <h2 class="profile-name">{{ usuario.name if usuario else 'N/A'}}</h2>
+        <p class="profile-role">{{ usuario.rol if usuario else 'N/A' }}</p>
+    </div>
+    
+    <div class="profile-info">
+        <p><strong>Cédula:</strong> {{ usuario.idcard if usuario else 'N/A' }}</p>
+        <p><strong>Teléfono:</strong> {{ usuario.phone if usuario else 'N/A' }}</p>
+    </div>
+  
+    <div class="profile-actions">
+        <form action="{{ url_for('logout.logout') }}" method="GET">
+            <button type="submit" class="logout">Cerrar Sesión</button>
+        </form>
+        <p><a href="{{ url_for('contact.contact') }}"> ¿Tiens algun problema?, contáctanos</a></p>
+    </div>
+</div>
+ 
+   
+{%endif%}
+
+<script src="{{ url_for('static', filename='JS/menu.js') }}"></script> 

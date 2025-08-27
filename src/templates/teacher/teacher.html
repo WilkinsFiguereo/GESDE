@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}Excusas recibidas{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/administration/excuses-received.css') }}">
+{% endblock %}
+
+{% block content %}
+  
+    <nav class="menuNav">
+        {% include 'menu.html' %}
+    </nav>
+    
+    <div class="container-excuses-received">
+        <div class="menu-excuses-received">
+            <h2>Registro de excusas</h2>
+            <p>{{ total_accepted }} excusas recividas</p>
+        </div>
+
+        <div class="filter">
+            <div class="text-filter">
+                <h2>Registros de excusas</h2>
+                <p>Registro de excusas aceptadas actuales</p>
+            </div>
+        
+            <div id="filtro" class="filter-option">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/tehacher/filtrar.png') }}" alt="Filtro">
+                <select id="filterSelect" class="filter-option">
+                    <option value="">Filtrar</option>
+                    <option value="fecha">Fecha</option>
+                    <option value="grados">Grados</option>
+                </select>
+            </div>
+            
+            <div id="gradoSelectContainer" style="display: none;">
+                <select id="gradoSelect">
+                    <option value="">Selecciona un grado</option>
+                    {% for g in grados %}
+                                <option value="{{ g.grade }}">{{ g.grade }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div id="fechaSelectContainer" style="display: none;">
+                <input type="date" id="fechaSelect" class="filter-option">
+            </div>
+            
+        
+
+            <div class="container-change">
+                <div class="block">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/tehacher/miniaturas.png') }}" alt="Icono 1">
+                </div>
+                <div class="flex">
+                    <img src="{{ url_for('static', filename='ASSETS/IMG/tehacher/lista.png') }}" alt="Icono 2">
+                </div>
+            </div>
+
+            <div class="sekeer">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/lupa.png') }}" alt="">
+                <input type="text" placeholder="Buscar excusa">
+            </div>
+        </div>
+
+        <div class="box">
+            {% for excuse in excuses %}
+            <div class="excuses-received">
+                <div class="container-person">
+                    <div class="img-profile">
+                        <img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/usuario.png') }}" alt="">
+                    </div>
+                    <div class="info">
+                        <div class="student"><h2>{{ excuse.student_name }}</h2></div>
+                        <div class="father">
+                            <p><i><img src="{{ url_for('static', filename='ASSETS/IMG/GenericImg/usuario.png') }}" alt=""></i> {{ excuse.parent_name }}</p>
+                        </div>
+                    </div>
+    
+                    <div class="state">
+                        <p>Aprobado</p>
+                        <i><img src="{{ url_for('static', filename='ASSETS/IMG/pading/marca-de-verificacion.png') }}" alt=""></i>
+                    </div>
+                </div>
+    
+                <div class="info-excuse">
+                    <div class="rease">
+                        <div class="container-excuse-info">
+                            <i><img src="{{ url_for('static', filename='ASSETS/IMG/pading/prohibido.png') }}" alt=""></i>
+                            <h2>Motivo</h2>
+                        </div>
+                        <div class="info-ex">
+                            <p>{{ excuse.reason }}</p>
+                        </div>
+                    </div>
+    
+                    <div class="date">
+                        <div class="container-excuse-info">
+                            <i><img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/time-and-date.png') }}" alt=""></i>
+                            <h2>Fecha de excusa</h2>
+                        </div>
+                        <div class="info-ex">
+                            <p>{{ excuse.excuse_date.strftime('%d-%m-%Y') }}</p>
+                        </div>
+                    </div>
+    
+                    <div class="date">
+                        <div class="container-excuse-info">
+                            <i><img src="{{ url_for('static', filename='ASSETS/IMG/pading/tope-de-grado.png') }}" alt=""></i>
+                            <h2>Grado</h2>
+                        </div>
+                        <div class="info-ex">
+                            <p>{{ excuse.grade }}</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="day">
+                    <div class="info-ex absence">
+                        <p>{{ excuse.excuse_duration }} de ausencia</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            {% if has_prev %}
+              <a href="{{ url_for('teacher.show_excuses', page=page-1) }}"> 
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}" alt="" style="transform: rotate(180deg);"> 
+              </a>
+            {% endif %}
+            
+            <span>
+              Página {{ page }} de 
+              {{ (total_accepted // 9) + (1 if total_accepted % 9 > 0 else 0) }}
+            </span>
+            
+            {% if has_next %}
+              <a href="{{ url_for('teacher.show_excuses', page=page+1) }}"> 
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}" alt=""> 
+              </a>
+            {% endif %}
+        </div>
+        
+
+    <script src="{{ url_for('static', filename='JS/teacher.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+
+
+.container-god {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Hace que ocupe toda la pantalla */
+    margin: 0;
+    background-color: #f0f0f0; /* Fondo opcional */
+}
+
+.contenedor {
+    text-align: center;
+    background: white;
+    padding: 65px 20%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.contenedor h2{
+    color: rgb(123, 202, 4);
+    font-size: 35px;
+    margin-top: 40px;
+    text-align: center;
+    width: 100%;
+}
+
+.contenedor button{
+    margin-top: 30px;
+    font-size: 20px;
+    border: none;
+    background-color: var(--tertiary-color);
+    padding: 10px 40px;
+    border-radius: 5px;
+}
+
+.contenedor button:hover{
+    background-color: #2a9247;
+    transition: 0.5s;
+}
+.contenedor button a{
+    color: white;
+}
+
+.contenedor img {
+    width: 300px;
+    height: auto;
+    opacity: 0; /* Empieza invisible */
+    transform: rotate(0deg) scale(0.8); /* Empieza un poco reducida */
+    animation: entradaClockwise 1s forwards; /* Duración 1s, manteniendo el estado final */
+}
+
+@keyframes entradaClockwise {
+    0% {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+
+@media (max-width: 540px){
+
+    .container-god{
+        padding: 30PX;
+    }
+}

@@ -1,0 +1,243 @@
+<div class="schedule-card">
+    <div class="schedule-header">
+        <h2>Asignar horario al profesor</h2>
+        <p>Complete los campos para asignar el horario</p>
+    </div>
+    
+    <form action="{{ url_for('shedule.save_schedule') }}" method="POST" class="schedule-form">
+        <div class="form-grid">
+            <!-- Profesor Select -->
+            <div class="form-group">
+                <label for="teacher_id" class="form-label">
+                    <i class="fas fa-chalkboard-teacher"></i> Profesor
+                </label>
+                <select name="teacher_id" id="teacher_id" class="form-control" required>
+                    <option value="" disabled selected>Seleccione un profesor</option>
+                    {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Día de la semana -->
+            <div class="form-group">
+                <label for="day_of_week" class="form-label">
+                    <i class="fas fa-calendar-day"></i> Día de la semana
+                </label>
+                <select name="day_of_week" id="day_of_week" class="form-control" required>
+                    <option value="" disabled selected>Seleccione un día</option>
+                    <option value="lunes">Lunes</option>
+                    <option value="martes">Martes</option>
+                    <option value="miércoles">Miércoles</option>
+                    <option value="jueves">Jueves</option>
+                    <option value="viernes">Viernes</option>
+                </select>
+            </div>
+
+            <!-- Grado -->
+            <div class="form-group">
+                <label for="grade" class="form-label">
+                    <i class="fas fa-graduation-cap"></i> Grado
+                </label>
+                <select name="grade" id="grade" class="form-control" required>
+                    <option value="" disabled selected>Seleccione un grado</option>
+                    {% for g in grados %}
+                                <option value="{{ g.grade }}">{{ g.grade }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="button" class="new-grade">Agregar grado</button>
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="form-actions">
+            <button id="volverBtn" type="button" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+            <button type="button" class="btn btn-primary" id="desasignarBtn">
+                <i class="fas fa-save"></i> Desasignar horario
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Guardar horario
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="schedule-card" id="unassign-card" style="display: none;">
+    <h2 class="text-center mb-4">Desasignar grado a profesor</h2>
+    <form action="{{ url_for('shedule.unassign_schedule') }}" method="POST" id="unassignForm" class="schedule-form">
+        <!-- Select de Profesores -->
+        <div class="form-group mb-4">
+            <label for="unassign_teacher_id" class="form-label">
+                <i class="fas fa-chalkboard-teacher"></i> Profesor
+            </label>
+            <select name="teacher_id" id="unassign_teacher_id" class="form-control" required>
+                <option value="" disabled selected>Selecciona un profesor</option>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Select de Grados Asignados (se llena con JavaScript) -->
+        <div class="form-group mb-4">
+            <label for="unassign_grade" class="form-label">
+                <i class="fas fa-graduation-cap"></i> Grado asignado
+            </label>
+            <select name="grade" id="unassign_grade" class="form-control" required disabled>
+                <option value="" disabled selected>Primero elige un profesor</option>
+            </select>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="form-group text-center mt-4">
+            <button type="button" class="btn btn-danger mr-2" onclick="location.reload();">
+                <i class="fas fa-trash-alt"></i> Volver
+            </button>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Desasignar
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    document.getElementById('unassign_teacher_id').addEventListener('change', async function() {
+        // Verificar que los elementos existen primero
+        const gradeSelect = document.getElementById('unassign_grade');
+        const submitBtn = document.querySelector('#unassignForm button[type="submit"], #unassignForm .btn-primary');
+        
+        if (!gradeSelect || !submitBtn) {
+            console.error('Error: Elementos del formulario no encontrados');
+            alert('Error interno. Por favor recarga la página.');
+            return;
+        }
+    
+        const teacherId = this.value;
+        
+        // Estado inicial
+        gradeSelect.innerHTML = '<option value="" disabled selected>Cargando...</option>';
+        gradeSelect.disabled = true;
+        submitBtn.disabled = true;
+    
+        try {
+            const url = new URL(`${window.location.origin}/GESDE/get_assigned_grades`);
+            url.searchParams.append('teacher_id', teacherId);
+    
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || `Error ${response.status}`);
+            }
+    
+            const data = await response.json();
+    
+            if (!Array.isArray(data)) {
+                throw new Error('Formato de respuesta inválido');
+            }
+    
+            if (data.length > 0) {
+                gradeSelect.innerHTML = data.map(item => {
+                    const dayFormatted = formatDayName(item.day_of_week || '');
+                    return `<option value="${item.grade}|${item.day_of_week}">
+                        ${item.grade} - ${dayFormatted}
+                    </option>`;
+                }).join('');
+                
+                gradeSelect.disabled = false;
+                submitBtn.disabled = false;
+            } else {
+                gradeSelect.innerHTML = '<option value="" disabled>No hay grados asignados</option>';
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            gradeSelect.innerHTML = '<option value="" disabled>Error al cargar datos</option>';
+            alert(`Error: ${error.message}`);
+        }
+    });
+    
+    
+    // Función mejorada para formatear días
+    function formatDayName(day) {
+        if (!day) return 'Sin día asignado';
+        
+        const daysMap = {
+            'lunes': 'Lunes',
+            'martes': 'Martes',
+            'miércoles': 'Miércoles',
+            'jueves': 'Jueves',
+            'viernes': 'Viernes',
+            'monday': 'Lunes',
+            'tuesday': 'Martes',
+            'wednesday': 'Miércoles',
+            'thursday': 'Jueves',
+            'friday': 'Viernes'
+        };
+        
+        const normalizedDay = day.toString().toLowerCase().trim();
+        return daysMap[normalizedDay] || normalizedDay.charAt(0).toUpperCase() + normalizedDay.slice(1);
+    }
+    
+    document.getElementById('unassignForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const gradeSelect = document.getElementById('unassign_grade');
+        
+        try {
+            submitBtn.disabled = true;
+            
+            const [grade, day] = gradeSelect.value.split('|');
+            const formData = new FormData();
+            formData.append('teacher_id', document.getElementById('unassign_teacher_id').value);
+            formData.append('grade', grade);
+            formData.append('day_of_week', day);
+
+            const response = await fetch('/GESDE/desasignar_grado', {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => null);
+                throw new Error(errorData?.message || `Error ${response.status}`);
+            }
+            
+            const result = await response.json();
+    
+            if (result.success) {
+                alert("Grado desasignado correctamente");
+                // Disparar el evento change para recargar los grados
+                document.getElementById('unassign_teacher_id').dispatchEvent(new Event('change'));
+            } else {
+                throw new Error(result.error || "Error desconocido al desasignar");
+            }
+        } catch (error) {
+            console.error("Error en desasignación:", error);
+            alert(`Error: ${error.message}`);
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+
+    document.getElementById('desasignarBtn').addEventListener('click', function () {
+        // Oculta todas las cards con class="schedule-card"
+        document.querySelectorAll('.schedule-card').forEach(function(card) {
+            card.style.display = 'none';
+        });
+    
+        // Muestra el div con id="unassign-card"
+        const unassignCard = document.getElementById('unassign-card');
+        if (unassignCard) {
+            unassignCard.style.display = 'block';
+        }
+    });
+</script>
+
+<script src="{{ url_for('static', filename='JS/crud.js') }}"></script>

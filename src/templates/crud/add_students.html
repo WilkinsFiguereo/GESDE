@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block title %}Agregar usuario{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/students.css') }}">
+{% endblock %}
+
+{% block content %}
+        {% include 'menu.html' %}
+    
+        <div class="content-wrapper">  
+        <div class="container-menu-side" id="menuSidebar">
+          {% include 'crud/side-menu.html'%}
+        </div>
+        <div class="container">
+    <div class="container-add_students" id="containerAddStudents">
+        <h2>Agregar estudiantes</h2>
+        <form action="{{ url_for('addstudents.add_student') }}" method="post">
+
+            <label for="">Nombre del estudiante</label>
+            <input type="text" name="studentName" id="studentName" list="studentSuggestions" required>
+            <p style="color: red; font-size: 12px; cursor: pointer; " id="btnEliminarEstudiante">Eliminar estudiante</p>
+            <label for="">Selecciona grado</label>
+            <select name="grado" id="" required>
+                <option value="">Seleccione un grado</option>
+                {% for g in grados %}
+                    <option value="{{ g.grade }}">{{ g.grade }}</option>
+                {% endfor %}
+            </select>
+
+            
+            <button style="background-color: var(--tertiary-color);" type="button" id="asignarProfesorBtn">Asignar profesor</button>
+            <button type="submit" onclick="return confirm('¿Estás seguro de que deseas agregar este estudiante?');">Agregar estudiante</button>
+
+        </form>
+
+        
+
+</div>
+<div class="container-add_teacher" style="display: none;" id="containerAddGrade">
+    {% include 'crud/schedule.html'%}
+</div>
+
+<div class="container-add_grade" style="display: none;">
+    <form action="{{ url_for('addgrade.add_grade') }}" method="post">
+        <h2>Agregar nuevo grado</h2>
+        <input type="text" name="grade" placeholder="Agrega un nuevo grado">
+        <button type="button">Volver</button>
+        <button type="submit">Agregar</button>
+    </form>
+</div>
+
+<div class="container-add_students" id="delete_students" style="display: none;">
+<form action="{{ url_for('addstudents.delete_student') }}" method="post">
+    <div class="form-group">
+        <label for="gradeFilter">Filtrar por grado:</label>
+        <select id="gradeFilter" name="gradeFilter">
+            <option value="">-- Todos los grados --</option>
+            {% for g in grados %}
+                    <option value="{{ g.grade }}">{{ g.grade }}</option>
+                {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="studentId">Selecciona estudiante para eliminar:</label>
+        <select name="studentId" id="studentSelect" required>
+            <option value="">-- Seleccione un estudiante --</option>
+            {% for estudiante in estudiantes %}
+                <option value="{{ estudiante.id }}" data-grade="{{ estudiante.grade }}">
+                    {{ estudiante.name }} - {{ estudiante.grade }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="button" id="btnVolverDesdeEliminar" class="btn-volver">Volver</button>
+    <button type="submit" onclick="return confirmDelete()" class="btn-eliminar">Eliminar</button>
+</form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btnAgregarGrado = document.querySelector('.new-grade');
+        const contenedorGrado = document.querySelector('.container-add_grade');
+        const contenedorEstudiantes = document.querySelector('.container-add_students');
+        const contenedorEliminar = document.getElementById('delete_students');
+    
+        const btnVolver = contenedorGrado.querySelector('button[type="button"]');
+        const btnEliminarEstudiante = document.getElementById('btnEliminarEstudiante');
+        const btnVolverDesdeEliminar = document.getElementById('btnVolverDesdeEliminar');
+    
+        // Mostrar formulario de agregar grado
+        btnAgregarGrado.addEventListener('click', function () {
+            contenedorGrado.style.display = 'block';
+            contenedorEstudiantes.style.display = 'none';
+            contenedorEliminar.style.display = 'none';
+        });
+    
+        // Volver desde agregar grado al menú principal de estudiantes
+        btnVolver.addEventListener('click', function () {
+            contenedorGrado.style.display = 'none';
+            contenedorEstudiantes.style.display = 'block';
+            contenedorEliminar.style.display = 'none';
+        });
+    
+        // Mostrar formulario de eliminar estudiante
+        btnEliminarEstudiante.addEventListener('click', function () {
+            contenedorEliminar.style.display = 'block';
+            contenedorGrado.style.display = 'none';
+            contenedorEstudiantes.style.display = 'none';
+        });
+    
+        // Volver desde eliminar estudiante al menú principal de estudiantes
+        btnVolverDesdeEliminar.addEventListener('click', function () {
+            contenedorEliminar.style.display = 'none';
+            contenedorEstudiantes.style.display = 'block';
+            contenedorGrado.style.display = 'none';
+        });
+    });
+    
+
+    </script>
+   <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const paya = document.querySelector('.paya');
+
+    function checkScrollPosition() {
+        const scrollLeft = window.scrollX;
+        const maxScrollLeft = document.body.scrollWidth - window.innerWidth;
+
+        // Cuando está casi al final a la derecha (puedes ajustar el umbral)
+        if (scrollLeft >= maxScrollLeft - 10) {
+            paya.classList.add('rotated');
+            paya.style.left = '0%'; // mueve a la izquierda
+        } else {
+            paya.classList.remove('rotated');
+            paya.style.left = '90%'; // vuelve a la derecha
+        }
+    }
+
+    // Detectar scroll horizontal
+    window.addEventListener('scroll', checkScrollPosition);
+
+    // También ejecuta al cargar
+    checkScrollPosition();
+});
+</script>
+ 
+    
+</div>
+</div>
+
+
+<script src="{{ url_for('static', filename='JS/crud.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,41 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Olvide mi Contraseña{% endblock %}
+    
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/user/recover.css') }}">
+{% endblock %}
+    
+{% block content %}
+    <div class="container-recover">
+        
+        <form action="{{ url_for('recover.recover_confirm') }}" method="POST" enctype="multipart/form-data">
+            <div class="text-recover">
+                <div class="{{ error_class }}">
+                    <h2>{{message}}</h2>
+                </div>
+                <h1>¿Olvidaste tu contraseña?</h1>
+                <p>Recupera tu contraseña, ingresa tu numero de telefono y te enviaremos un enlace para restablecerla.</p>
+            </div>
+
+            
+            <div class="input-recover">
+                <input type="text" name="phone" maxlength="14" placeholder="(000)-000-0000" oninput="formatPhoneNumber(this)" required>
+            </div>
+            <div class="button">
+                <button type="submit">
+                    Recuperar
+                </button>
+            </div>
+
+            <div class="links">
+                <a href="{{ url_for('login.login') }}">Volver al inicio</a>
+                <p>|</p>
+                <a href="{{ url_for('contact.contact') }}">Contáctanos</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='JS/autocomplet.js') }}"></script>
+    {% endblock %}

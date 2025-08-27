@@ -1,0 +1,204 @@
+
+.container-menu {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 25px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 5;
+}
+
+.container-menu .menu {
+    display: flex;
+    align-items: center;
+    padding: 10.3px;
+}
+
+.container-menu .icon-profile {
+    margin-left: auto; 
+    margin-right: 2%; 
+    display: flex;
+    align-items: center;
+}
+
+.container-menu .icon-profile img {
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    border-radius: 50%;
+}
+
+.container-menu .menu .icon-profile, .icon-menu img:hover {
+    cursor: pointer;
+}
+
+.container-menu .menu .icon-menu img {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+}
+
+.container-menu .menu, .container-menu .icon-profile {
+    z-index: inherit; /* No modifica el contexto del menú */
+}
+
+/* profile */
+.container-menu {
+    position: relative; /* Contenedor relativo para posicionar el cuadro de perfil */
+}
+
+.profile-box {
+    width: 250px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center;
+    position: absolute; /* Posición relativa al contenedor */
+    right: 10px; /* Alineado a la derecha del contenedor */
+    z-index: 10; /* Se coloca encima de otros elementos */
+    display: none; /* Estado inicial oculto */
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.profile-box.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.profile-box.hide {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.profile-name {
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.profile-role {
+    color: var(--tertiary-color);
+    font-size: 16px;
+}
+
+.profile-info p {
+    font-size: 14px;
+    color: var(--primary-color);
+    margin: 5px 0;
+}
+
+.profile-actions button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.profile-actions button.logout {
+    background-color: #f44336;
+}
+
+.icon-profile {
+    cursor: pointer;
+}
+
+.menu ul li {
+    margin-left: 20px;
+}
+
+.container-menu {
+    display: flex;
+    justify-content: space-between; /* Asegura que los elementos se distribuyan */
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.list-menu {
+    margin-left: auto; /* Empuja el menú a la derecha */
+    margin-right: 3%;
+}
+
+.list-menu ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-menu ul li {
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+.list-menu a{
+    font-size: 20px;
+    color: white;
+}
+.edit-profile{
+    cursor: pointer;
+    position: absolute;
+    margin-left: 26%;
+    background-color: #fff;
+    border-bottom-right-radius: 10px;
+}
+.edit-profile img{
+    width: 25px;
+    margin-left: auto;
+    height: 25px;
+}
+
+.profile-header img{
+    border-radius: 50%;
+    max-width: 130px;
+    max-height: 130px;
+}
+
+.profile-actions p a{
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 10px;
+    margin-top: 10px;
+}
+@media (max-width: 840px){
+    .icon-menu{
+        cursor: pointer;
+    }
+
+    .list-menu ul li{
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 500px){
+    .menu h2{
+        font-size: 15px;
+    }
+
+    .list-menu ul li{
+        font-size: 5px;
+    }
+}

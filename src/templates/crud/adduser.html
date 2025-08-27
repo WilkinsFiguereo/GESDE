@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% block title %}Agregar usuario{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/addcrud.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/menuside.css') }}">
+<style>
+    /* Estilos compactos para la sección de hijos */
+    .child-input-group {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .child-input-group select {
+        flex: 1;
+        min-width: 120px;
+        padding: 6px 8px;
+        height: 38px;
+    }
+    .remove-child-btn {
+        background: none;
+        border: none;
+        color: #dc3545;
+        cursor: pointer;
+        font-size: 1.2em;
+        padding: 0 5px;
+    }
+    #add-child-btn {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        margin: 5px 0 15px 0;
+    }
+    .child-label {
+        min-width: 80px;
+        font-size: 0.9em;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include 'menu.html' %}
+
+<div class="content-wrapper">  
+    <div class="container-menu-side" id="menuSidebar" style="height: 150vh;">
+        {% include 'crud/side-menu.html'%}
+    </div>
+
+    <div class="container-add">
+        <h1>Agregar usuario</h1>
+        <div class="{{ error_class }}">
+            <h2>{{message}}</h2>
+        </div>
+        <form action="{{ url_for('adduser.add_user') }}" method="post">
+            <label>Nombre</label>
+            <div class="container-formadd">
+                <input type="text" name="nameadd" placeholder="Nombre" required>
+                <label>Cedula</label>
+                <input type="text" name="idcard" placeholder="XXX-XXXXXXX-X" maxlength="13" oninput="formatIDCard(this)" required>
+                <label for="">Telefono</label>
+                <input type="text" name="phoneadd" id="" maxlength="14" placeholder="(000)-000-0000" oninput="formatPhoneNumber(this)" required>
+                <label>Rol</label>
+                <select name="roladd" id="roleSelect" onchange="toggleChildrenSection()">
+                    <option value="administration">Administración escolar</option>
+                    <option value="teacher">Profesor</option>
+                    <option value="parent">Padre</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <!-- Sección compacta de hijos -->
+                <div id="children-section" style="display:none">
+                    <div id="children-container">
+                        <div class="child-input-group">
+                            <span class="child-label">Hijo 1:</span>
+                            <select name="grado[]" class="gradoSelect" onchange="filterStudents(this)" required>
+                                <option value="">Seleccione grado</option>
+                                {% for grade in grades %}<option value="{{ grade.grade }}">{{ grade.grade }}</option>{% endfor %}
+                            </select>
+                            <select name="student_id[]" class="studentSelect" disabled required>
+                                <option value="">Seleccione estudiante</option>
+                            </select>
+                            <button type="button" class="remove-child-btn" style="visibility:hidden">×</button>
+                        </div>
+                    </div>
+                    <button type="button" id="add-child-btn">+ Agregar otro hijo</button>
+                </div>
+
+                <label>Contraseña</label>
+                <input type="text" name="passwordadd" id="passwordField" minlength="6" required>
+                <button type="button" onclick="generatePassword()" class="password-button">Generar contraseña</button>
+            </div>
+            <button type="submit">Agregar</button>
+        </form>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='JS/autocomplet.js') }}"></script>
+<script>
+// Datos globales
+const allStudents = JSON.parse('{{ students | tojson | safe }}');
+let childCount = 1;
+const maxChildren = 5;
+
+// Mostrar/ocultar sección de hijos
+function toggleChildrenSection() {
+    const isParent = document.getElementById('roleSelect').value === 'parent';
+    document.getElementById('children-section').style.display = isParent ? 'block' : 'none';
+    if (!isParent) resetChildrenSection();
+}
+
+// Resetear sección de hijos
+function resetChildrenSection() {
+    const container = document.getElementById('children-container');
+    container.innerHTML = `
+        <div class="child-input-group">
+            <span class="child-label">Hijo 1:</span>
+            <select name="grado[]" class="gradoSelect" onchange="filterStudents(this)" required>
+                <option value="">Seleccione grado</option>
+                {% for grade in grades %}<option value="{{ grade.grade }}">{{ grade.grade }}</option>{% endfor %}
+            </select>
+            <select name="student_id[]" class="studentSelect" disabled required>
+                <option value="">Seleccione estudiante</option>
+            </select>
+            <button type="button" class="remove-child-btn" style="visibility:hidden">×</button>
+        </div>`;
+    childCount = 1;
+}
+
+// Filtrar estudiantes por grado
+function filterStudents(selectElement) {
+    const grade = selectElement.value;
+    const studentSelect = selectElement.parentElement.querySelector('.studentSelect');
+    
+    studentSelect.innerHTML = '<option value="">Cargando...</option>';
+    studentSelect.disabled = true;
+
+    if (!grade) {
+        studentSelect.innerHTML = '<option value="">Seleccione grado primero</option>';
+        return;
+    }
+
+    const filtered = allStudents.filter(s => s.grade === grade);
+    studentSelect.innerHTML = filtered.length 
+        ? '<option value="">Seleccione estudiante</option>' + 
+          filtered.map(s => `<option value="${s.id}">${s.name}</option>`).join('')
+        : '<option value="">No hay estudiantes</option>';
+    studentSelect.disabled = !filtered.length;
+}
+
+// Eliminar hijo - Versión corregida
+function removeChild(button) {
+    // Encontrar el grupo padre
+    const childGroup = button.closest('.child-input-group');
+    
+    // Eliminar el grupo
+    childGroup.remove();
+    
+    // Decrementar el contador
+    childCount--;
+    
+    // Actualizar números de los hijos restantes
+    const remainingChildren = document.querySelectorAll('.child-input-group');
+    remainingChildren.forEach((child, index) => {
+        child.querySelector('.child-label').textContent = `Hijo ${index + 1}:`;
+    });
+    
+    // Manejar visibilidad del botón de eliminar
+    if (remainingChildren.length === 1) {
+        remainingChildren[0].querySelector('.remove-child-btn').style.visibility = 'hidden';
+    }
+}
+
+// Delegación de eventos para el botón de eliminar
+document.getElementById('children-container').addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-child-btn')) {
+        removeChild(e.target);
+    }
+});
+
+// Agregar nuevo hijo
+document.getElementById('add-child-btn').addEventListener('click', function() {
+    if (childCount >= maxChildren) {
+        alert('Máximo de 5 hijos alcanzado');
+        return;
+    }
+
+    childCount++;
+    const container = document.getElementById('children-container');
+    const newChild = document.createElement('div');
+    newChild.className = 'child-input-group';
+    newChild.innerHTML = `
+        <span class="child-label">Hijo ${childCount}:</span>
+        <select name="grado[]" class="gradoSelect" onchange="filterStudents(this)" required>
+            <option value="">Seleccione grado</option>
+            {% for grade in grades %}<option value="{{ grade.grade }}">{{ grade.grade }}</option>{% endfor %}
+        </select>
+        <select name="student_id[]" class="studentSelect" disabled required>
+            <option value="">Seleccione estudiante</option>
+        </select>
+        <button type="button" class="remove-child-btn">×</button>
+    `;
+    
+    container.appendChild(newChild);
+    
+    // Mostrar todos los botones de eliminar (excepto si es el primero)
+    const removeButtons = document.querySelectorAll('.remove-child-btn');
+    if (removeButtons.length > 1) {
+        removeButtons.forEach(btn => btn.style.visibility = 'visible');
+    }
+});
+</script>
+{% endblock %}

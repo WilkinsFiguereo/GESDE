@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}GESDE{% endblock %}</title>
+
+    <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='ASSETS/IMG/GenericImg/G-removebg-preview.png') }}">
+
+    <!-- Estilos CSS Globales -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/GenericCSS/general.css') }}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    
+    <!-- Navbar -->
+
+        {% block content %}{% endblock %}
+
+
+    <!-- Footer -->
+    
+    <!-- Scripts JS -->
+    
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Usuarios deshabilitados{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/crud.css') }}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/menuside.css') }}"> 
+{% endblock %}
+
+{% block content %}
+
+    {% include 'menu.html' %}
+    <!-- <iframe src="/GESDE/src/templates/HTML/Generic/menu.html" frameborder="0" width="100%" height="85" scrolling="no"></iframe>
+     -->
+
+
+<div class="content-wrapper">  
+    <div class="container-menu-side" id="menuSidebar">
+        {% include 'crud/side-menu.html' %}
+    </div>
+
+    <div class="container-listuser">
+       
+        <h1>Lista de usuarios</h1>
+        
+        
+        <table id="usuariosTable">
+            <div class="seeker">
+                <h2>Lista de usuarios deshabilitados</h2>
+                <button type="submit"><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/lupa.png') }}" alt="Buscar"></button>
+                <input type="text" id="search" placeholder="Buscar usuario" onkeyup="buscarUsuario()"> <!-- Se elimina el id duplicado -->
+            </div>
+            <thead>
+                <tr>
+                    <th>Acción</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cedula</th>
+                    <th>Telefono</th>
+                    <th>Rol</th>
+                    <th>Última Actualización</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if usuarios %}
+                    {% for usuario in usuarios %}
+                        {% if usuario %}
+                        <tr>
+                            <td class="action">
+                                <div class="icon-button">
+                                    <form action="{{ url_for('enable.enable_user', user_idenable=usuario.id) }}" method="POST"  onsubmit="return confirm('¿Estás seguro de que deseas habilitar este usuario?');">
+                                        <button type="submit" class="enable">
+                                            <img src="{{ url_for('static', filename='ASSETS/IMG/pading/marca-de-verificacion.png') }}">
+                                        </button>
+                                    </form>                                    
+                                    <form action="{{ url_for('disable_user.delete_user', user_id=usuario.id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar definitivamente este usuario?');">
+                                        <button type="submit" class="see" style="background-color: red;">
+                                            <img src="{{ url_for('static', filename='ASSETS/IMG/Crud/delete-2-svgrepo-com.svg') }}" alt="Eliminar">
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.name }}</td>
+                            <td>{{ usuario.idcard }}</td>
+                            <td>{{ usuario.phone }}</td>
+                            <td>{{ usuario.rol}}</td>
+                            <td>{{ usuario.last_updated }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7">No hay usuarios registrados.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+                    <tfoot>
+                <tr >
+                    <th colspan="7">
+                        <div class="add-user">
+                        <a href="{{ url_for('adduser.add_user') }}">Agregar Usuario</a>
+                        </div>
+                </th>
+                </tr>
+            </tfoot>
+            
+        </table>
+        
+        <div class="pagination">
+            {% if has_prev %}
+              <a href="{{ url_for('disable.disable', page=page-1, per_page=per_page, search=search) }}">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}"
+                     alt="Anterior" style="transform: rotate(180deg);">
+              </a>
+            {% endif %}
+          
+            <span>
+              Página {{ page }} de {{ (total_disabled // 6) + (1 if total_disabled % 6 > 0 else 0) }}
+            </span>
+          
+            {% if has_next %}
+              <a href="{{ url_for('disable.disable', page=page+1, per_page=per_page, search=search) }}">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}"
+                     alt="Siguiente">
+              </a>
+            {% endif %}
+          </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='JS/seeker.js') }}"></script>
+
+{% endblock %}

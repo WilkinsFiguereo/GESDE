@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de estudiantes{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/crud.css') }}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='FRONTEND/CSS/Crud/menuside.css') }}"> 
+{% endblock %}
+
+{% block content %}
+    {% include 'menu.html' %}
+
+    <div class="content-wrapper">  
+        <div class="container-menu-side" id="menuSidebar">
+            {% include 'crud/side-menu.html' %}
+        </div>
+        <div class="container-listuser table_students">
+        <h1>Lista de estudiantes</h1>
+        
+        <div class="scroll-table"> 
+        <table id="usuariosTable" >
+            <div class="seeker seeker_students">
+                <h2>Lista de estudiantes</h2>
+                <div class="filter-container">
+                    <div class="grade-filter">
+                        <label for="grade_filter">Filtrar por grado:</label>
+                        <select id="grade_filter" onchange="filterByGrade()">
+                            <option value="">Todos los grados</option>
+                            {% for grade in available_grades %}
+                                <option value="{{ grade }}" {% if grade == selected_grade %}selected{% endif %}>{{ grade }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="search-box">
+                        <button type="submit"><img src="{{ url_for('static', filename='ASSETS/IMG/Crud/lupa.png') }}" alt="Buscar"></button>
+                        <input type="text" id="search" placeholder="Buscar estudiante" onkeyup="buscarUsuario()">
+                    </div>
+                    
+                </div>
+            </div>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Grado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if students %}
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ student.id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.grade }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6">No hay estudiantes registrados.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="7">
+                        <div class="add-user">
+                        <a href="{{ url_for('shedule.save_schedule') }}">Agregar estudiante</a>
+                        </div>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="pagination">
+            {% if has_prev %}
+              <a href="{{ url_for('listcrud.liststudent', page=page-1, per_page=per_page, search=search, grade=selected_grade) }}">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}"
+                     alt="Anterior" style="transform: rotate(180deg);">
+              </a>
+            {% endif %}
+          
+            <span>
+              Página {{ page }} de {{ (total_students // per_page) + (1 if total_students % per_page > 0 else 0) }}
+            </span>
+          
+            {% if has_next %}
+              <a href="{{ url_for('listcrud.liststudent', page=page+1, per_page=per_page, search=search, grade=selected_grade) }}">
+                <img src="{{ url_for('static', filename='ASSETS/IMG/Excuse/flecha-correcta2.png') }}"
+                     alt="Siguiente">
+              </a>
+            {% endif %}
+          </div>
+        </div>
+    </div>
+</div>
+
+<div class="contain-view-profile" style="display: none;">
+    <div class="view-profile" >
+        {% include 'crud/view-profile.html' %}
+    </div>
+</div>
+
+<script>
+function filterByGrade() {
+    const grade = document.getElementById('grade_filter').value;
+    const search = document.getElementById('search').value;
+    const url = new URL(window.location.href);
+    
+    // Actualizar parámetros en la URL
+    url.searchParams.set('grade', grade);
+    url.searchParams.set('page', 1); // Resetear a la primera página
+    
+    // Mantener el término de búsqueda si existe
+    if (search) {
+        url.searchParams.set('search', search);
+    }
+    
+    window.location.href = url.toString();
+}
+
+function buscarUsuario() {
+    const search = document.getElementById('search').value;
+    const grade = document.getElementById('grade_filter').value;
+    const url = new URL(window.location.href);
+    
+    // Actualizar parámetros en la URL
+    url.searchParams.set('search', search);
+    url.searchParams.set('page', 1); // Resetear a la primera página
+    
+    // Mantener el filtro de grado si existe
+    if (grade) {
+        url.searchParams.set('grade', grade);
+    }
+    
+    window.location.href = url.toString();
+}
+</script>
+
+<script src="{{ url_for('static', filename='JS/crud.js') }}"></script>
+<script src="{{ url_for('static', filename='JS/view-profile.js') }}"></script>
+
+{% endblock %}

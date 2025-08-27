@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --primary-color: #0e5cc3;
+    --secondary-color: #d3d3d3;
+    --tertiary-color: #2da44e;
+  }
+
+*{
+  font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 650;
+  font-style: normal;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+
+#stylenone{
+  border: none;
+  width: 100%;
+  display: inline-flex;
+  z-index: 10;
+}
+.content-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  
+}
+
+
+.container-menu-side.visible {
+  transform: translateX(250px); /* Desplaza el menú hacia la derecha */
+  opacity: 1; /* Hace visible el menú */
+}
+.visible{
+  display: block;
+}
+
+
+.pagination {
+  display: flex;
+  align-items: center; /* Alinea verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  margin-top: 5%;
+  font-size: 20px;
+}
+
+.pagination span {
+  color: var(--primary-color);
+  margin: 0 40px;
+}
+
+.pagination a img {
+  margin-top: 20%;
+  width: 40px;
+  height: auto;
+}
+
+#view-profile{
+  position: absolute;
+  min-height: 100vh;
+  width: 100%;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.425);
+}
+@media (max-width: 1200px){
+  .content-wrapper{
+    display: block;
+    justify-self: unset;
+    align-items: normal;
+  }
+
+  
+@keyframes slideInFromTop {
+  from {
+      transform: translateY(-100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideOutToTop {
+  from {
+      transform: translateY(0);
+      opacity: 1;
+  }
+  to {
+      transform: translateY(-100%);
+      opacity: 0;
+  }
+}
+
+.container-menu-side.visible {
+  animation: slideInFromTop 0.5s ease-in-out forwards;
+}
+
+.container-menu-side:not(.visible) {
+  animation: slideOutToTop 0.3s ease-in-out forwards;
+}
+}
+.alert {
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.alert.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.error{
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  margin: 10px 10px;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 10px;
+  text-align: center; 
+}
+
+.error h2{
+  color: #721c24;
+}
