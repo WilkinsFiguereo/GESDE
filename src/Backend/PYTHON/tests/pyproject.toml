@@ -1,0 +1,13 @@
+# pyproject.toml
+[tool.pytest.ini_options]
+markers = [
+    "playwright: marks tests as playwright tests",
+    "slow: slow tests", 
+    "integration: integration tests",
+    "unit: unit tests"
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:flask_mysqldb.*",
+    "ignore::DeprecationWarning:reportlab.*"
+]
+addopts = "-v --strict-markers --disable-warnings"

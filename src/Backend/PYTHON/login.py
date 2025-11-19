@@ -61,13 +61,14 @@ def login():
         idcard = request.form.get('IDcard')
         password = request.form.get('Password')
 
-        # Inicializar las clases
+        # Evita usar MySQL si no está inicializado (modo test)
+        if not hasattr(mysql, 'connection'):
+            flash('Base de datos no disponible en modo de prueba', 'error')
+            return redirect(url_for('login.login'))
+
         db = Database(mysql)
         user_handler = User(db)
-
-        # Intentar autenticar al usuario
         usuario = user_handler.authenticate(idcard, password)
-
         if usuario:
             # Configurar la sesión
             user_handler.set_session(usuario)

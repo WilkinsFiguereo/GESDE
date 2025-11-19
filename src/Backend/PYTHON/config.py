@@ -1,12 +1,11 @@
 class Config:
-    # Definimos los parámetros de configuración dentro de la clase.
     MYSQL_HOST = 'localhost'
     MYSQL_USER = 'root'
-    MYSQL_PASSWORD = 'Wilkins_12009'  # Cambia si es necesario
-    MYSQL_DB = 'GESDE'  # Cambia por el nombre de tu base de datos
-    MYSQL_PORT = 3307  # Si utilizas un puerto diferente, asegúrate de configurarlo aquí
-    SECRET_KEY = 'SECRET_KEY'  # Asegúrate de tener una clave secreta para las sesiones de Flask
-    
+    MYSQL_PASSWORD = 'Wilkins_12009'
+    MYSQL_DB = 'GESDE'
+    MYSQL_PORT = 3306
+    SECRET_KEY = 'SECRET_KEY'
+
     # Método estático para conectar a la base de datos.
     @staticmethod
     def conectar():
